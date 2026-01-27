@@ -8,6 +8,7 @@ public class SlotMachine : MonoBehaviour
     [SerializeField] private Slot slotPrefabs;
     [SerializeField] private int slotCount;
     [SerializeField,Range(0,10)] private float slotSpeed=1;
+    [SerializeField] private float slotDistance=1;
     [SerializeField] private int slotSymbolCount=3;
     [SerializeField] private int currentSlot = 0;
     [SerializeField] private List<Slot> slots;
@@ -16,7 +17,7 @@ public class SlotMachine : MonoBehaviour
     [SerializeField] private Sprite nullSprite;
 
     public event Action<string> PullResult;
-
+    public Action ShakeCamera;
 
     void Start()
     {
@@ -24,7 +25,7 @@ public class SlotMachine : MonoBehaviour
 
         for(int i = 0;i< slotCount; i++)
         {
-            Slot slot = Instantiate(slotPrefabs,new Vector2(transform.position.x+i,transform.position.y),Quaternion.identity);
+            Slot slot = Instantiate(slotPrefabs,new Vector2(transform.position.x+i*slotDistance,transform.position.y),Quaternion.identity);
             slot.SetSlotMachine(this);
             slot.SetSpeed(slotSpeed);
             slot.SetSymbolCount(slotSymbolCount);

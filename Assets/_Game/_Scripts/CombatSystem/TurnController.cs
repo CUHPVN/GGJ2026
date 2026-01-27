@@ -4,10 +4,7 @@ using UnityEngine.InputSystem;
 public class TurnController : Singleton<TurnController>
 {
     [SerializeField] private PhaseState combatPhase = PhaseState.Prepare;
-    void Start()
-    {
-        
-    }
+
 
     void Update()
     {
