@@ -1,0 +1,66 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &9102768784026827904
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 54922412001702220}
+  - component: {fileID: 7719050851266259141}
+  m_Layer: 0
+  m_Name: SlotMachine
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &54922412001702220
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9102768784026827904}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -2, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7719050851266259141
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9102768784026827904}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71dc4012d6590d54b920632001c6c6f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SlotMachine
+  slotPrefabs: {fileID: 147305734414750056, guid: da22af2acf4ff0046b4ae5243cc14b39, type: 3}
+  slotCount: 5
+  slotSpeed: 5
+  slotSymbolCount: 10
+  currentSlot: 0
+  slots: []
+  result: 
+  sprites:
+  - {fileID: 7293598183456022363, guid: e595b46f469e56c4194b144422853832, type: 3}
+  - {fileID: 7795085465242543974, guid: 809a7d5446f0a614ea26f50219e20a4d, type: 3}
+  - {fileID: -1660761858345613354, guid: 7bb3a8ccc3e2b2d4390f83d8124ce24b, type: 3}
+  - {fileID: 6582011127417039112, guid: dc341776cea11ab4086089519d1dd9ef, type: 3}
+  - {fileID: -4953529368547132117, guid: f044ebfc6ed89a14c8664ab5c3a9d6ec, type: 3}
+  - {fileID: -1192541474057205494, guid: 597d56b844bb93046b66414613adfbc4, type: 3}
+  - {fileID: 4456443523020135713, guid: 9f5976890cc6ccb4aa5a92a56069585c, type: 3}
+  - {fileID: 8984754096541894249, guid: 40186701ad9afc147ae9739c615464fa, type: 3}
+  - {fileID: 4315506946141470425, guid: 1ed6361b0a7409c43b1485692e53f79b, type: 3}
+  - {fileID: -2896165634315968221, guid: d802bedf6c7789543a0a83064d786c6c, type: 3}
+  - {fileID: 4133926295016576647, guid: 3629a0f6e94363a4388c216cb59cc21f, type: 3}
+  nullSprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
