@@ -1,5 +1,9 @@
+using System;
+using System.Collections;
 using System.Dynamic;
+using Tech.Events;
 using UnityEngine;
+using UnityEngine.Events;
 using static UnityEngine.GraphicsBuffer;
 
 public class Slot : MonoBehaviour
@@ -11,6 +15,18 @@ public class Slot : MonoBehaviour
     [SerializeField] private int[] symbolArray;
     [SerializeField] private Icon[] icons;
     [SerializeField] private bool stop;
+
+    public UnityEvent OnSlotStop;
+
+    private void OnEnable()
+    {
+        OnSlotStop.AddListener(() => OnStop()); 
+    }
+    private void OnStop()
+    {
+        ParticleManager.Instance.PlayStopSlotVFX(transform.position);
+        slotMachine.ShakeCamera?.Invoke();
+    }
     private void Start()
     {
         StartRoll();
@@ -21,7 +37,7 @@ public class Slot : MonoBehaviour
         symbolArray = new int[symbolCount];
         for (int i = 0; i < symbolCount; i++)
         {
-            symbolArray[i] = Random.Range(0, symbolCount); //Can Change
+            symbolArray[i] = UnityEngine.Random.Range(0, symbolCount); //Can Change
         }
         currentSymbol = 1;
         for (int i = 0; i < 3; i++)
@@ -80,7 +96,13 @@ public class Slot : MonoBehaviour
                 }
                 icons[i].SetTargetPosition(target);
             }
+            StartCoroutine(OnStopRolling());
         }
+    }
+    private IEnumerator OnStopRolling()
+    {
+        yield return new WaitForSeconds(0.15f);
+        OnSlotStop?.Invoke();
     }
     public int GetResultSymbol()
     {

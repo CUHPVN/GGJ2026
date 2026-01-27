@@ -46,7 +46,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SlotMachine
   slotPrefabs: {fileID: 147305734414750056, guid: da22af2acf4ff0046b4ae5243cc14b39, type: 3}
   slotCount: 5
-  slotSpeed: 5
+  slotSpeed: 7
+  slotDistance: 1.5
   slotSymbolCount: 10
   currentSlot: 0
   slots: []

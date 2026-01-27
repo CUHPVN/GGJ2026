@@ -1,5 +1,8 @@
+using System;
 using System.Collections;
+using Tech.Events;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Icon : MonoBehaviour
 {
@@ -40,7 +43,7 @@ public class Icon : MonoBehaviour
     IEnumerator Move()
     {
         float time = 0;
-        float duration = 0.25f;
+        float duration = 0.15f;
         Vector2 start = transform.position;
         while (time < duration)
         {

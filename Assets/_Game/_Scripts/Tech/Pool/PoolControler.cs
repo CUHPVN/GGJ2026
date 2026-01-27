@@ -24,8 +24,6 @@ public class PoolAmount
 public enum PoolType
 {
     None=0,
-    VFX=1,
-    Bomb=2,
-    SFX=3,
-    VFX2=4,
+    SlotStopVFX=1,
+    //Add 
 }
