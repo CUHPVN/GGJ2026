@@ -15,9 +15,9 @@ MonoBehaviour:
   itemBinds:
   - itemType: 1
     itemSO: {fileID: 11400000, guid: 6ad29bd81b6fd9f41bd8d77182f9ec25, type: 2}
-  - itemType: 0
-    itemSO: {fileID: 0}
-  - itemType: 0
+  - itemType: 4
+    itemSO: {fileID: 11400000, guid: ebb7a479d3e7f1c4daf08dcf1899e9f9, type: 2}
+  - itemType: 5
     itemSO: {fileID: 0}
   - itemType: 0
     itemSO: {fileID: 0}

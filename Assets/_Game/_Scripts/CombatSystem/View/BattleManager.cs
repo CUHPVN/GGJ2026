@@ -48,7 +48,7 @@ public class BattleManager : MonoBehaviour
             yield return new WaitForSeconds(1f); // Ngh? gi?a các turn
         }
 
-        Debug.Log("Tr?n ??u k?t thúc!");
+        //Debug.Log("Tr?n ??u k?t thúc!");
     }
 
     IEnumerator PlayerTurnRoutine()
