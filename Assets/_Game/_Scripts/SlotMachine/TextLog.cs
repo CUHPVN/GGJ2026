@@ -7,7 +7,6 @@ public class TextLog : MonoBehaviour
     [SerializeField] private TMP_Text text;
     private void OnEnable()
     {
-         slotMachine.PullResult+=ShowText;
     }
     public void ShowText(string text)
     {
