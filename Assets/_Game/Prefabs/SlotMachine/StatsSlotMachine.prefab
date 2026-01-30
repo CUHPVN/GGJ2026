@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 54922412001702220}
   - component: {fileID: 7719050851266259141}
   m_Layer: 0
-  m_Name: SlotMachine
+  m_Name: StatsSlotMachine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -46,10 +46,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SlotMachine
   slotPrefabs: {fileID: 147305734414750056, guid: da22af2acf4ff0046b4ae5243cc14b39, type: 3}
   slotCount: 5
-  slotSpeed: 7
+  slotSpeed: 10
   slotDistance: 1.5
   slotSymbolCount: 10
   currentSlot: 0
+  IsDone: 0
   slots: []
   result: 
   sprites:
@@ -64,4 +65,7 @@ MonoBehaviour:
   - {fileID: 4315506946141470425, guid: 1ed6361b0a7409c43b1485692e53f79b, type: 3}
   - {fileID: -2896165634315968221, guid: d802bedf6c7789543a0a83064d786c6c, type: 3}
   - {fileID: 4133926295016576647, guid: 3629a0f6e94363a4388c216cb59cc21f, type: 3}
+  - {fileID: -6009198046271197863, guid: a6eb69f63b64abd41b859b27d485d74d, type: 3}
+  - {fileID: 7576011095104966051, guid: 1b89d3fb33cc20646a9964b0c0053a4c, type: 3}
+  - {fileID: 5774581190672780694, guid: 7824ab6c960dd7746a8392f834e2143e, type: 3}
   nullSprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}

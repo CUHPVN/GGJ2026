@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: ProteinBar
   m_EditorClassIdentifier: Assembly-CSharp::ItemSO
   ItemType: 1
-  sprite: {fileID: 0}
+  sprite: {fileID: 7293598183456022363, guid: e595b46f469e56c4194b144422853832, type: 3}
   Name: Protein Bar(theme)
   Description: Example..blabla

@@ -11,6 +11,7 @@ public class SlotMachine : MonoBehaviour
     [SerializeField] private float slotDistance=1;
     [SerializeField] private int slotSymbolCount=3;
     [SerializeField] private int currentSlot = 0;
+    [SerializeField] private bool IsDone=false;
     [SerializeField] private List<Slot> slots;
     [SerializeField] private List<int> result;
     [SerializeField] private List<Sprite> sprites;
@@ -21,11 +22,15 @@ public class SlotMachine : MonoBehaviour
 
     void Start()
     {
+        Init();
+    }
+    void Init()
+    {
         Application.targetFrameRate = 120;
 
-        for(int i = 0;i< slotCount; i++)
+        for (int i = 0; i < slotCount; i++)
         {
-            Slot slot = Instantiate(slotPrefabs,new Vector2(transform.position.x+i*slotDistance,transform.position.y),Quaternion.identity);
+            Slot slot = Instantiate(slotPrefabs, new Vector2(transform.position.x + i * slotDistance, transform.position.y), Quaternion.identity);
             slot.SetSlotMachine(this);
             slot.SetSpeed(slotSpeed);
             slot.SetSymbolCount(slotSymbolCount);
@@ -34,11 +39,22 @@ public class SlotMachine : MonoBehaviour
             slots.Add(slot);
         }
     }
+    void StartSlotMachine()
+    {
+        IsDone = false;
+        for (int i = 0; i < slotCount; i++)
+        {
+            slots[i].StartRoll();
+        }
+        result.Clear();
+        currentSlot = 0;
+    }
 
 
     void Update()
     {
         CheckClick();
+        CheckStop();
     }
     void CheckClick()
     {
@@ -58,14 +74,16 @@ public class SlotMachine : MonoBehaviour
         }
         if (keyboard.rKey.wasPressedThisFrame)
         {
-            for (int i = 0; i < slotCount; i++)
-            {
-                slots[i].StartRoll();
-            }
-            result.Clear();
-            currentSlot = 0;
+            StartSlotMachine();
         }
     }
+    void CheckStop()
+    {
+        if (IsDone) return;
+        if(currentSlot>=slotCount) IsDone = true;
+    }
+
+    public bool GetIsDone() => IsDone;
     public Sprite GetSymbolSpriteRule(int symbolData)
     {
         if (symbolData >= sprites.Count) return nullSprite;
