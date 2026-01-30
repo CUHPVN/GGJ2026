@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f841568323fb7a4981e23650891cb8f, type: 3}
+  m_Name: MoreReroll
+  m_EditorClassIdentifier: Assembly-CSharp::ShopItemSO
+  itemName: MoreReroll
+  description: +1 reroll chance
+  price: 10
+  icon: {fileID: -4676396471179108511, guid: 40b4b84ff1d85c04b8f11a1ce139dcda, type: 3}
+  id: more_reroll
