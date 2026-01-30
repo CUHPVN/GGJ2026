@@ -6,10 +6,11 @@ public class CameraShake : MonoBehaviour
 {
     public float duration = 0.25f;
     public float magnitude = 0.1f;
-    
+    private Coroutine coroutine;
     public void StartShake()
     {
-        StartCoroutine(Shake(duration, magnitude));
+        if(coroutine == null)
+        coroutine = StartCoroutine(Shake(duration, magnitude));
     }
     private IEnumerator Shake(float duration, float magnitude)
     {
@@ -26,6 +27,7 @@ public class CameraShake : MonoBehaviour
             yield return null;
         }
         transform.position = originalPos;
+        coroutine = null;
     }
     public void OnDestroy()
     {

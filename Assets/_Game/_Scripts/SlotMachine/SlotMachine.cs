@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -12,20 +13,32 @@ public class SlotMachine : MonoBehaviour
     [SerializeField] private int slotSymbolCount=3;
     [SerializeField] private int currentSlot = 0;
     [SerializeField] private List<Slot> slots;
-    [SerializeField] private List<int> result;
+    [SerializeField] private int[,] res = new int[5, 3];
     [SerializeField] private List<Sprite> sprites;
     [SerializeField] private Sprite nullSprite;
+    [SerializeField] private Coroutine rolling=null;
+    [SerializeField] private SymbolPool symbolPool;
 
-    public event Action<string> PullResult;
     public Action ShakeCamera;
 
     void Start()
     {
+        Init();
+    }
+    public void Init()
+    {
         Application.targetFrameRate = 120;
 
-        for(int i = 0;i< slotCount; i++)
+        for (int i = 0; i < slotCount; i++)
         {
-            Slot slot = Instantiate(slotPrefabs,new Vector2(transform.position.x+i*slotDistance,transform.position.y),Quaternion.identity);
+            if (symbolPool != null) symbolPool.RandomPool();
+            else
+            {
+                symbolPool = FindAnyObjectByType<SymbolPool>();
+                Debug.LogWarning("Symbol was not ref!");
+            }
+            Slot slot = Instantiate(slotPrefabs, new Vector2(transform.position.x + i * slotDistance, transform.position.y), Quaternion.identity);
+            slot.SetSymbolPool(symbolPool);
             slot.SetSlotMachine(this);
             slot.SetSpeed(slotSpeed);
             slot.SetSymbolCount(slotSymbolCount);
@@ -34,7 +47,16 @@ public class SlotMachine : MonoBehaviour
             slots.Add(slot);
         }
     }
-
+    public void ResetRoll()
+    {
+        symbolPool.RandomPool();
+        for (int i = 0; i < slotCount; i++)
+        {
+            slots[i].StartRoll();
+        }
+        currentSlot = 0;
+        rolling = null;
+    }
 
     void Update()
     {
@@ -47,23 +69,31 @@ public class SlotMachine : MonoBehaviour
 
         if (mouse.leftButton.wasPressedThisFrame)
         {
-            if (currentSlot < slotCount)
-            {
-                slots[currentSlot].SetStop(true);
-                int symbol = slots[currentSlot].GetResultSymbol();
-                result.Add(symbol);
-                PullResult?.Invoke(GetNameSprite(symbol));
-                currentSlot++;
-            }
+            Rolling();
         }
         if (keyboard.rKey.wasPressedThisFrame)
         {
-            for (int i = 0; i < slotCount; i++)
-            {
-                slots[i].StartRoll();
-            }
-            result.Clear();
-            currentSlot = 0;
+            ResetRoll();
+        }
+    }
+    public void Rolling()
+    {
+        if(rolling==null)
+        rolling = StartCoroutine(Roll());
+
+    }
+    WaitForSeconds waitForEndOfRoll = new WaitForSeconds(0.25f);
+    public IEnumerator Roll()
+    {
+        while(currentSlot < slotCount)
+        {
+            slots[currentSlot].SetStop(true);
+            int[] symbol = slots[currentSlot].GetResultSymbol();
+            res[currentSlot, 0] = symbol[0];
+            res[currentSlot, 1] = symbol[1];
+            res[currentSlot, 2] = symbol[2];
+            currentSlot++;
+            yield return waitForEndOfRoll;
         }
     }
     public Sprite GetSymbolSpriteRule(int symbolData)
@@ -75,5 +105,9 @@ public class SlotMachine : MonoBehaviour
     {
         if (symbolData >= sprites.Count) return "No Name";
         return sprites[symbolData].name;
+    }
+    public void OnDisable()
+    {
+        
     }
 }
