@@ -1,69 +1,113 @@
-﻿using UnityEngine;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
-public class SlotInventoryConnector : MonoBehaviour
+public class InventoryManager : MonoBehaviour
 {
-    [Header("System Links")]
-    public SlotMachine slotMachine;       // Kéo SlotMachine vào đây
-    public InventoryManager inventoryManager; // Kéo InventoryManager vào đây
+    [Header("Data References")]
+    public ItemDataBase itemDataBase;
 
-    [Header("Configuration")]
-    [Tooltip("Bảng map số ID từ SlotMachine sang ItemType")]
-    public List<SlotMap> mappingTable;
+    [Header("UI Prefabs")]
+    public GameObject itemSlotPrefab;
+    public Transform itemsGridContainer;
 
-    // Struct định nghĩa quy tắc Map
-    [System.Serializable]
-    public struct SlotMap
+    [Header("Description Panel")]
+    public GameObject descriptionPanel;
+    public Image desIcon;
+    public TextMeshProUGUI desNameText;
+    public TextMeshProUGUI desDescriptionText;
+    public Button useButton;
+
+    [Header("Debug / Testing")]
+    [Tooltip("Kéo nút Test Add Item vào đây")]
+    public Button debugAddButton;
+    [Tooltip("Chọn loại Item muốn test thêm vào")]
+    public ItemType itemTestType = ItemType.ProteinBar;
+
+    private List<Item> inventoryItems = new List<Item>();
+    private Item currentSelectedItem;
+
+    private void Start()
     {
-        public string description; // Ghi chú (VD: Hình cái búa)
-        public int slotSymbolID;   // ID mà SlotMachine trả ra (0, 1, 2...)
-        public ItemType itemType;  // Enum tương ứng muốn nhận
+        // Setup Description Panel
+        if (descriptionPanel) descriptionPanel.SetActive(false);
+        if (useButton) useButton.onClick.AddListener(UseCurrentItem);
+
+        // Setup Debug Button [MỚI]
+        if (debugAddButton != null)
+        {
+            debugAddButton.onClick.AddListener(AddTestItem);
+        }
     }
 
-    private void OnEnable()
+    // Hàm nhận Item từ Slot Machine thông qua Connector
+    public void AddItemFromSlotMachine(ItemType type)
     {
-        if (slotMachine != null)
+        if (type == ItemType.None) return;
+
+        // Khởi tạo Class Item
+        Item newItem = new Item(type, itemDataBase);
+
+        // Kiểm tra an toàn: nếu DataBase không có item này thì không thêm
+        if (newItem.itemSO == null)
         {
-            // Đăng ký nhận kết quả từ SlotMachine
-            // Lưu ý: SlotMachine cần có event: public event Action<int> PullResult;
-            slotMachine.PullResult += OnReceiveResult;
+            Debug.LogWarning($"Không tìm thấy dữ liệu cho {type}, hủy thêm.");
+            return;
+        }
+
+        inventoryItems.Add(newItem);
+        RefreshUI();
+    }
+
+    // Hàm Debug: Được gọi khi ấn nút Add Item [MỚI]
+    private void AddTestItem()
+    {
+        Debug.Log($"<color=green>[Debug]</color> Đang thêm thủ công: {itemTestType}");
+        AddItemFromSlotMachine(itemTestType);
+    }
+
+    public void RefreshUI()
+    {
+        // Xóa các Slot cũ
+        foreach (Transform child in itemsGridContainer)
+        {
+            Destroy(child.gameObject);
+        }
+
+        // Tạo Slot mới
+        foreach (Item item in inventoryItems)
+        {
+            GameObject slotObj = Instantiate(itemSlotPrefab, itemsGridContainer);
+            InventorySlot slotScript = slotObj.GetComponent<InventorySlot>();
+            slotScript.Setup(item, this);
         }
     }
 
-    private void OnDisable()
+    public void ShowSelectedItem(Item item)
     {
-        if (slotMachine != null)
+        currentSelectedItem = item;
+        if (descriptionPanel) descriptionPanel.SetActive(true);
+
+        if (item.itemSO != null)
         {
-            slotMachine.PullResult -= OnReceiveResult;
+            desIcon.sprite = item.itemSO.sprite;
+            desNameText.text = item.itemSO.Name;
+            desDescriptionText.text = item.itemSO.Description;
         }
     }
 
-    // Hàm xử lý chính
-    private void OnReceiveResult(int symbolIndex)
+    public void UseCurrentItem()
     {
-        // 1. Duyệt qua bảng Map để tìm ItemType tương ứng với số ID vừa quay ra
-        ItemType typeFound = ItemType.None;
-        bool isFound = false;
+        if (currentSelectedItem == null) return;
 
-        foreach (var map in mappingTable)
-        {
-            if (map.slotSymbolID == symbolIndex)
-            {
-                typeFound = map.itemType;
-                isFound = true;
-                break;
-            }
-        }
+        Debug.Log("<color=yellow>Using Item: </color>" + currentSelectedItem.itemType.ToString());
 
-        // 2. Nếu tìm thấy và khác None -> Gửi sang InventoryManager
-        if (isFound && typeFound != ItemType.None)
-        {
-            inventoryManager.AddItemFromSlotMachine(typeFound);
-            Debug.Log($"<color=cyan>[Connector]</color> Slot ID: {symbolIndex} -> Add Item: {typeFound}");
-        }
-        else
-        {
-            Debug.LogWarning($"<color=orange>[Connector]</color> Chưa config ItemType cho Slot ID: {symbolIndex}");
-        }
+        inventoryItems.Remove(currentSelectedItem);
+
+        if (descriptionPanel) descriptionPanel.SetActive(false);
+        currentSelectedItem = null;
+
+        RefreshUI();
     }
 }
