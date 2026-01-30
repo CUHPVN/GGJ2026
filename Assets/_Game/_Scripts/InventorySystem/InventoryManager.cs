@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro; // Nếu dùng Text thường thì đổi thành using UnityEngine.UI;
+using TMPro;
 
 public class InventoryManager : MonoBehaviour
 {
@@ -15,17 +15,30 @@ public class InventoryManager : MonoBehaviour
     [Header("Description Panel")]
     public GameObject descriptionPanel;
     public Image desIcon;
-    public TextMeshProUGUI desNameText; // Đổi thành Text nếu không dùng TMP
-    public TextMeshProUGUI desDescriptionText; // Đổi thành Text nếu không dùng TMP
+    public TextMeshProUGUI desNameText;
+    public TextMeshProUGUI desDescriptionText;
     public Button useButton;
+
+    [Header("Debug / Testing")]
+    [Tooltip("Kéo nút Test Add Item vào đây")]
+    public Button debugAddButton;
+    [Tooltip("Chọn loại Item muốn test thêm vào")]
+    public ItemType itemTestType = ItemType.ProteinBar;
 
     private List<Item> inventoryItems = new List<Item>();
     private Item currentSelectedItem;
 
     private void Start()
     {
-        descriptionPanel.SetActive(false);
-        useButton.onClick.AddListener(UseCurrentItem);
+        // Setup Description Panel
+        if (descriptionPanel) descriptionPanel.SetActive(false);
+        if (useButton) useButton.onClick.AddListener(UseCurrentItem);
+
+        // Setup Debug Button [MỚI]
+        if (debugAddButton != null)
+        {
+            debugAddButton.onClick.AddListener(AddTestItem);
+        }
     }
 
     // Hàm nhận Item từ Slot Machine thông qua Connector
@@ -33,22 +46,36 @@ public class InventoryManager : MonoBehaviour
     {
         if (type == ItemType.None) return;
 
-        // Khởi tạo Class Item theo cấu trúc của bạn
+        // Khởi tạo Class Item
         Item newItem = new Item(type, itemDataBase);
-        inventoryItems.Add(newItem);
 
+        // Kiểm tra an toàn: nếu DataBase không có item này thì không thêm
+        if (newItem.itemSO == null)
+        {
+            Debug.LogWarning($"Không tìm thấy dữ liệu cho {type}, hủy thêm.");
+            return;
+        }
+
+        inventoryItems.Add(newItem);
         RefreshUI();
+    }
+
+    // Hàm Debug: Được gọi khi ấn nút Add Item [MỚI]
+    private void AddTestItem()
+    {
+        Debug.Log($"<color=green>[Debug]</color> Đang thêm thủ công: {itemTestType}");
+        AddItemFromSlotMachine(itemTestType);
     }
 
     public void RefreshUI()
     {
-        // Xóa các Slot cũ trên UI
+        // Xóa các Slot cũ
         foreach (Transform child in itemsGridContainer)
         {
             Destroy(child.gameObject);
         }
 
-        // Tạo lại các Slot mới
+        // Tạo Slot mới
         foreach (Item item in inventoryItems)
         {
             GameObject slotObj = Instantiate(itemSlotPrefab, itemsGridContainer);
@@ -60,22 +87,25 @@ public class InventoryManager : MonoBehaviour
     public void ShowSelectedItem(Item item)
     {
         currentSelectedItem = item;
-        descriptionPanel.SetActive(true);
+        if (descriptionPanel) descriptionPanel.SetActive(true);
 
-        desIcon.sprite = item.itemSO.sprite;
-        desNameText.text = item.itemSO.Name;
-        desDescriptionText.text = item.itemSO.Description;
+        if (item.itemSO != null)
+        {
+            desIcon.sprite = item.itemSO.sprite;
+            desNameText.text = item.itemSO.Name;
+            desDescriptionText.text = item.itemSO.Description;
+        }
     }
 
     public void UseCurrentItem()
     {
         if (currentSelectedItem == null) return;
 
-        //In ra ItemType và xóa Item
         Debug.Log("<color=yellow>Using Item: </color>" + currentSelectedItem.itemType.ToString());
 
         inventoryItems.Remove(currentSelectedItem);
-        descriptionPanel.SetActive(false);
+
+        if (descriptionPanel) descriptionPanel.SetActive(false);
         currentSelectedItem = null;
 
         RefreshUI();
