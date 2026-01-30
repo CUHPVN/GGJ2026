@@ -1,5 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 public abstract class EntityView : MonoBehaviour
 {
@@ -7,13 +8,21 @@ public abstract class EntityView : MonoBehaviour
     public string entityName;
 
     // Logic chỉ số và danh sách Modifier
-    public CharacterStats _stats;
-    public float _currentHP;
+    protected CharacterStats _stats;
+    protected float _currentHP;
     public List<ICombatModifier> _modifiers = new List<ICombatModifier>();
 
     // Truy cập dữ liệu
     public CharacterStats Stats => _stats;
-    public float CurrentHP { get => _currentHP; set => _currentHP = value; }
+    public Action<float, float> OnHealthChanged;
+    public float CurrentHP { get => _currentHP; set
+        {
+            // Đảm bảo máu không vượt quá giới hạn
+            _currentHP = Mathf.Clamp(value, 0, _stats.MaxHP);
+            // Kích hoạt Event
+            OnHealthChanged?.Invoke(_currentHP, _stats.MaxHP);
+        }
+    }
 
     public virtual void Initialize(float str, float intel, float dex)
     {

@@ -31,18 +31,18 @@ public class BattleManager : MonoBehaviour
         Debug.Log(playerGoFirst ? "Player!" : "Enemy!");
 
         // 3. Vòng l?p chi?n ??u cho ??n khi có ng??i ch?t
-        while (player._currentHP > 0 && enemy._currentHP > 0)
+        while (player.CurrentHP > 0 && enemy.CurrentHP > 0)
         {
             if (playerGoFirst)
             {
                 yield return StartCoroutine(PlayerTurnRoutine());
-                if (enemy._currentHP <= 0) break;
+                if (enemy.CurrentHP <= 0) break;
                 yield return StartCoroutine(EnemyTurnRoutine());
             }
             else
             {
                 yield return StartCoroutine(EnemyTurnRoutine());
-                if (player._currentHP <= 0) break;
+                if (player.CurrentHP <= 0) break;
                 yield return StartCoroutine(PlayerTurnRoutine());
             }
             yield return new WaitForSeconds(1f); // Ngh? gi?a các turn

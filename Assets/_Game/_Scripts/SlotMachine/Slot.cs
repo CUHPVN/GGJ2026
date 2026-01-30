@@ -76,7 +76,7 @@ public class Slot : MonoBehaviour
         stop = value;
         if (stop)
         {
-            Debug.Log(slotMachine.GetNameSprite(symbolArray[GetIndexInArray(currentSymbol)]));//
+            //Debug.Log(slotMachine.GetNameSprite(symbolArray[GetIndexInArray(currentSymbol)]));//
 
             for(int i = 0; i < 3; i++)
             {
