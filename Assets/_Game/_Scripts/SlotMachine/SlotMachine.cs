@@ -19,6 +19,8 @@ public class SlotMachine : MonoBehaviour
     [SerializeField] private Coroutine rolling=null;
     [SerializeField] private SymbolPool symbolPool;
 
+    public event Action OnRollDone;
+
     public Action ShakeCamera;
 
     void Start()
@@ -67,7 +69,7 @@ public class SlotMachine : MonoBehaviour
         Mouse mouse = Mouse.current;
         Keyboard keyboard = Keyboard.current;
 
-        if (mouse.leftButton.wasPressedThisFrame)
+        if (keyboard.spaceKey.wasPressedThisFrame)
         {
             Rolling();
         }
@@ -95,6 +97,7 @@ public class SlotMachine : MonoBehaviour
             currentSlot++;
             yield return waitForEndOfRoll;
         }
+        OnRollDone?.Invoke();
     }
     public Sprite GetSymbolSpriteRule(int symbolData)
     {

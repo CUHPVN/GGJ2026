@@ -3,7 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class BetManager : PersistentSingleton<BetManager>
+public class BetManager : Singleton<BetManager>
 {
     [Header("Stats")]
     [SerializeField] private int playerCoin = 0;
@@ -22,9 +22,8 @@ public class BetManager : PersistentSingleton<BetManager>
     // Lưu trữ: (số heart đã cược trong lượt, người chơi có cược nhiều hơn quái không)
     private List<(int betVal, bool isPlayerBetMore)> betHistory = new List<(int, bool)>();
 
-    protected override void Awake()
+    protected void Awake()
     {
-        base.Awake();
         initialMobHeart = mobHeart;
     }
 
