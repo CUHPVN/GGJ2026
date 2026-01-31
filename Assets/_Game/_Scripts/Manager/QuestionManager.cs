@@ -1,9 +1,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class QuestionManager : MonoBehaviour
+public class QuestionManager : Singleton<QuestionManager>
 {
-
+    public SlotMachine slotMachine;
+    public SlotMachine eSlotMachine;
     public bool[] playerHave = new bool[5];
     public Question question;
     public struct Question
@@ -26,7 +27,7 @@ public class QuestionManager : MonoBehaviour
         res.type = tmp[Random.Range(0, tmp.Count)];
         question = res;
     }
-    public EndBattleState IsPlayerWin(int[] playerRes, int[] enemyRes) 
+    public EndBattleState IsPlayerWin(int[,] playerRes, int[,] enemyRes) 
     {
         int playCnt = 0;
         foreach(int i in playerRes)

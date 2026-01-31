@@ -9,11 +9,18 @@ public class BetManager : Singleton<BetManager>
     [SerializeField] private int playerCoin = 0;
     [SerializeField] private int playerHeart = 10;
     [SerializeField] private int mobHeart = 10;
-    [SerializeField] TextMeshProUGUI panelText;
+   // [SerializeField] TextMeshProUGUI panelText;
     [SerializeField] TextMeshProUGUI playerHeartText;
+    [SerializeField] TextMeshProUGUI mobHeartText;
     [SerializeField] TextMeshProUGUI playerCoinText;
     [SerializeField] TextMeshProUGUI betAmmount;
     [SerializeField] bool isPlayerWin = true;
+    private int playerHeartBetted = 0;
+    private int mobHeartBetted = 0;
+    [SerializeField] TextMeshProUGUI playerHeartBettedText;
+    [SerializeField] TextMeshProUGUI mobHeartBettedText;
+    private EndBattleState gameResult;
+    private int finalVal;
 
     private int initialMobHeart;
     private int currentRoundBet; // Mức cược tối thiểu cần theo trong lượt này
@@ -36,7 +43,7 @@ public class BetManager : Singleton<BetManager>
         // Quái bắt buộc đặt bằng hoặc hơn (ở đây mặc định quái đặt bằng để khởi đầu)
         ProcessBet(playerInitiatedVal, false);
         UpdateHeartAndCoin();
-        panelText.text = $"Lượt đầu: Bạn và quái cùng cược {playerInitiatedVal}";
+        //panelText.text = $"Lượt đầu: Bạn và quái cùng cược {playerInitiatedVal}";
     }
 
     /// <summary>
@@ -45,15 +52,19 @@ public class BetManager : Singleton<BetManager>
     public void MobProposeBet()
     {
         int maxPossible = Mathf.Min(playerHeart, mobHeart);
-        if (maxPossible <= 0) { BetEnd(isPlayerWin); return; }
+        if (maxPossible <= 0) { BetEnd(); return; }
 
         // Logic: Tỉ lệ cược thấp cao hơn cược cao (dùng Weighted Random hoặc AnimationCurve)
         // Ở đây dùng một công thức đơn giản: Bình phương một số từ 0-1 để kéo kết quả về phía nhỏ
         float randomWeight = Random.value;
         currentRoundBet = Mathf.CeilToInt(Mathf.Pow(randomWeight, 2) * maxPossible);
         if (currentRoundBet == 0) currentRoundBet = 1;
+        mobHeartBetted += currentRoundBet;
+        mobHeartBettedText.text = $"{mobHeartBetted}";
+        playerHeartBetted += currentRoundBet;
+        playerHeartBettedText.text = $"{playerHeartBetted}";
 
-        panelText.text=($"Quái đề nghị mức cược: {currentRoundBet}. Bạn có theo (BetMore) hay Bỏ cuộc (Surrender)?");
+        // panelText.text=($"Quái đề nghị mức cược: {currentRoundBet}. Bạn có theo (BetMore) hay Bỏ cuộc (Surrender)?");
         UpdateBetAmmount();
     }
 
@@ -65,11 +76,17 @@ public class BetManager : Singleton<BetManager>
             // Giả sử "nhiều hơn" ở đây là +1 hoặc người chơi tự nhập (ở đây tôi ví dụ là bằng)
             currentRoundBet += difference;
             ProcessBet(currentRoundBet, difference > 0);
+           // mobHeartBetted += currentRoundBet;
+          //  mobHeartBettedText.text = $"{mobHeartBetted}";
+            playerHeartBetted += difference;
+            playerHeartBettedText.text = $"{playerHeartBetted}";
             difference = 0;
 
+
             // Kiểm tra điều kiện kết thúc sớm
-            if (playerHeart <= 0 || mobHeart <= 0) BetEnd(isPlayerWin);
+            if (playerHeart <= 0 || mobHeart <= 0) BetEnd();
             else MobProposeBet(); // Tiếp tục lượt mới
+            checkRes();
         }
         //else
         //{
@@ -79,7 +96,7 @@ public class BetManager : Singleton<BetManager>
 
     private void ProcessBet(int val, bool isPlayerMore)
     {
-        int finalVal = Mathf.Min(val, playerHeart, mobHeart);
+        finalVal = Mathf.Min(val, playerHeart, mobHeart);
         playerHeart -= finalVal;
         mobHeart -= finalVal;
         UpdateHeartAndCoin();
@@ -88,14 +105,16 @@ public class BetManager : Singleton<BetManager>
 
     public void Surrender()
     {
-        panelText.text=("Bạn đã bỏ cuộc! Mất toàn bộ số Heart đã cược.");
+        //panelText.text=("Bạn đã bỏ cuộc! Mất toàn bộ số Heart đã cược.");
         // Chuyển màn mới mà không nhận lại Heart/Coin
         TransitionToNextLevel();
     }
 
-    public void BetEnd(bool isPlayerWin)
+    public void BetEnd()
     {
-        if (isPlayerWin)
+         mobHeartBetted += currentRoundBet;
+          mobHeartBettedText.text = $"{mobHeartBetted}";
+        if (gameResult == EndBattleState.Win)
         {
             int totalHeartRefund = 0;
             int bonusCoin = 0;
@@ -105,7 +124,7 @@ public class BetManager : Singleton<BetManager>
                 totalHeartRefund += record.betVal;
                 if (record.isPlayerBetMore)
                 {
-                    bonusCoin += record.betVal;
+                   // bonusCoin += record.betVal;
                 }
             }
 
@@ -113,11 +132,15 @@ public class BetManager : Singleton<BetManager>
             playerCoin += (bonusCoin + initialMobHeart); // Thưởng coin
             UpdateHeartAndCoin();
 
-            panelText.text = ($"Thắng! Nhận lại {totalHeartRefund} Heart và {bonusCoin + initialMobHeart} Coin");
+            //panelText.text = ($"Thắng! Nhận lại {totalHeartRefund} Heart và {bonusCoin + initialMobHeart} Coin");
+        }
+        else if (gameResult == EndBattleState.Draw)
+        {
+            IfDraw();
         }
         else
         {
-            panelText.text = "You lose";
+            IfLose();
         }
 
             TransitionToNextLevel();
@@ -130,17 +153,42 @@ public class BetManager : Singleton<BetManager>
 
     public void BetMore()
     {
-        if(difference<playerHeart)
+        if(difference+currentRoundBet<playerHeart)
             difference++;
+        UpdateBetAmmount();
+    }
+    public void BetLess()
+    {
+        if (difference > 0)
+            difference--;
+        UpdateBetAmmount();
+    }
+    public void ALlIn()
+    {
+        difference = Mathf.Min(playerHeart, mobHeart) - currentRoundBet;
         UpdateBetAmmount();
     }
     private void UpdateHeartAndCoin()
     {
         playerCoinText.text = $"Coin: {playerCoin}";
-        playerHeartText.text = $"Heart: {playerHeart}";
+        playerHeartText.text = $"HP: {playerHeart}";
+        mobHeartText.text = $"Enemy HP: {mobHeart}";
     }
     private void UpdateBetAmmount()
     {
-        betAmmount.text = $"Bet Ammount: {currentRoundBet + difference}";
+        betAmmount.text = $"{currentRoundBet + difference}";
+        playerHeartBettedText.text = $"{playerHeartBetted + difference}";
+    }
+    private void checkRes()
+    {
+        gameResult = QuestionManager.Instance.IsPlayerWin(QuestionManager.Instance.slotMachine.GetResult(), QuestionManager.Instance.eSlotMachine.GetResult());
+    }
+    private void IfDraw()
+    {
+        //....
+    }
+    private void IfLose()
+    {
+
     }
 }
