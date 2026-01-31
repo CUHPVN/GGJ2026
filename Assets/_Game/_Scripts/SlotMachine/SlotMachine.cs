@@ -19,8 +19,22 @@ public class SlotMachine : MonoBehaviour
     [SerializeField] private Coroutine rolling=null;
     [SerializeField] private SymbolPool symbolPool;
 
+    public event Action OnRollDone;
+
     public Action ShakeCamera;
 
+    private void OnEnable()
+    {
+        InteractManager.Instance.OnRollAction += Rolling;
+    }
+    private void OnDisable()
+    {
+        if (InteractManager.Instance != null)
+        {
+
+            InteractManager.Instance.OnRollAction -= Rolling;
+        }
+    }
     void Start()
     {
         Init();
@@ -60,21 +74,6 @@ public class SlotMachine : MonoBehaviour
 
     void Update()
     {
-        CheckClick();
-    }
-    void CheckClick()
-    {
-        Mouse mouse = Mouse.current;
-        Keyboard keyboard = Keyboard.current;
-
-        if (mouse.leftButton.wasPressedThisFrame)
-        {
-            Rolling();
-        }
-        if (keyboard.rKey.wasPressedThisFrame)
-        {
-            ResetRoll();
-        }
     }
     public void Rolling()
     {
@@ -95,7 +94,9 @@ public class SlotMachine : MonoBehaviour
             currentSlot++;
             yield return waitForEndOfRoll;
         }
+        OnRollDone?.Invoke();
     }
+    public int[,] GetResult() => res; 
     public Sprite GetSymbolSpriteRule(int symbolData)
     {
         if (symbolData >= sprites.Count) return nullSprite;
@@ -105,9 +106,5 @@ public class SlotMachine : MonoBehaviour
     {
         if (symbolData >= sprites.Count) return "No Name";
         return sprites[symbolData].name;
-    }
-    public void OnDisable()
-    {
-        
     }
 }
