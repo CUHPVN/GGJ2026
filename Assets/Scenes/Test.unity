@@ -878,6 +878,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1198455155}
   - {fileID: 1024463558}
   - {fileID: 869028575}
   - {fileID: 1862555125}
@@ -2300,7 +2301,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 535163038}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1198455156
 MonoBehaviour:
@@ -3669,7 +3670,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4862694268867131919, guid: dc20448c90b2c09458315bc8e1ec1703, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: Click
+      value: Roll
       objectReference: {fileID: 0}
     - target: {fileID: 4862694268867131919, guid: dc20448c90b2c09458315bc8e1ec1703, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
@@ -4133,7 +4134,6 @@ SceneRoots:
   m_Roots:
   - {fileID: 519420032}
   - {fileID: 619394802}
-  - {fileID: 1198455155}
   - {fileID: 535163038}
   - {fileID: 520136897}
   - {fileID: 1227641203061486386}
