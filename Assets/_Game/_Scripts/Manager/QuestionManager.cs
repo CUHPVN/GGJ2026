@@ -9,6 +9,7 @@ public class QuestionManager : Singleton<QuestionManager>
     public SlotMachine eSlotMachine;
     public bool[] playerHave = new bool[5];
     public Question question;
+    public EndBattleState battleState => IsPlayerWin(slotMachine.GetResult(),eSlotMachine.GetResult());
     public struct Question
     {
         public bool isHighest;
@@ -23,7 +24,6 @@ public class QuestionManager : Singleton<QuestionManager>
         if (StateController.Instance != null)
         {
             StateController.Instance.OnEnterStateRoll -= GenQuestion;
-
         }
     }
     public void GenQuestion()

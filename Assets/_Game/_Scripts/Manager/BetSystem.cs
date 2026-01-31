@@ -17,6 +17,10 @@ public class BetSystem : MonoBehaviour
     [SerializeField] private TMP_Text totalPlayerBetText;
     [SerializeField] private TMP_Text totalEnemyBetText;
     [SerializeField] private TMP_Text betCountText;
+    [SerializeField] private TMP_Text playerHealthText;
+    [SerializeField] private TMP_Text enemyHealthText;
+
+
 
 
 
@@ -62,10 +66,17 @@ public class BetSystem : MonoBehaviour
     }
     private void OnStartBetState()
     {
+        OnReset();
         StartEnemyThink();
     }
     private void StartEnemyThink()
     {
+        if (turnCount >= 6)
+        {
+            turn = EntityTurn.Stop;
+            Result();
+            return;
+        }
         if (turn == EntityTurn.Enemy)
         {
             if (enemyThink == null)
@@ -84,6 +95,7 @@ public class BetSystem : MonoBehaviour
     }
     private void EnemyTurn()
     {
+
         int minHP = totalPlayerBet - totalEnemyBet;
         if(playerHealth>=1)
         {
@@ -124,10 +136,11 @@ public class BetSystem : MonoBehaviour
     }
     void OnEnemyHealthChange()
     {
-
+        enemyHealthText.text = enemyHealth.ToString();
     }
     void OnPlayerHealthChange()
     {
+        playerHealthText.text = playerHealth.ToString();
 
     }
     void OnTotalEnemyBetChange()
@@ -181,7 +194,7 @@ public class BetSystem : MonoBehaviour
         if (totalPlayerBet < totalEnemyBet)
         {
             //Debug.Log("End");
-            turn = EntityTurn.Stop;
+            //turn = EntityTurn.Stop;
             BetOutOfHealth();
             return;
         }
@@ -197,7 +210,7 @@ public class BetSystem : MonoBehaviour
         OnTotalEnemyBetChange();
         enemyHealth -= count;
         OnEnemyHealthChange();
-        if (CheckEqual()) StartEnemyThink();
+        if (CheckEqual()&&playerHealth!=0&&enemyHealth!=0) StartEnemyThink();
         else
         if (turnCount >= 6)
         {
@@ -208,12 +221,18 @@ public class BetSystem : MonoBehaviour
         if (totalEnemyBet < totalPlayerBet)
         {
             //Debug.Log("End");
-            turn = EntityTurn.Stop;
+            //turn = EntityTurn.Stop;
             BetOutOfHealth();
             return;
         }
         else
         {
+            if(playerHealth==0)
+            {
+                //turn = EntityTurn.Stop;
+                BetOutOfHealth();
+                return;
+            }
             betCount = totalEnemyBet - totalPlayerBet;
             OnBetCountChange();
             turn = EntityTurn.Player;
@@ -246,27 +265,57 @@ public class BetSystem : MonoBehaviour
             //Debug.Log("OutOfHeath");
             turnCount++;
             Reveal();
+            if(turnCount == 6)
+            {
+                turn = EntityTurn.Stop;
+                Result();
+            }
         }
         outOfHealth = null;
     }
 
 
 
-    private bool CheckOutOfHealth()
-    {
-        if (enemyHealth <= 0 || playerHealth <= 0)
-        {
-            BetOutOfHealth();
-            return true; 
-        }
-        else
-        {
-            return false;
-        }
-    }
     void Result()
     {
-
+        EndBattleState endBattleState = QuestionManager.Instance.battleState;
+        if(endBattleState == EndBattleState.Draw)
+        {
+            playerHealth += totalPlayerBet;
+            OnPlayerHealthChange();
+            totalPlayerBet = 0;
+            OnTotalPlayerBetChange();
+            enemyHealth += totalEnemyBet;
+            OnEnemyHealthChange();
+            totalEnemyBet = 0;
+            OnTotalEnemyBetChange();
+            //new 
+            StateController.Instance.ChangeState(GameState.Roll);
+        }
+        else if(endBattleState == EndBattleState.Win)
+        {
+            //Addmoney
+            playerHealth += totalPlayerBet;
+            OnPlayerHealthChange();
+            totalPlayerBet = 0;
+            OnTotalPlayerBetChange();
+            if (enemyHealth == 0)
+            {
+                //addItem
+                //new 
+            }
+            else
+            {
+                totalEnemyBet = 0;
+                OnTotalEnemyBetChange();
+                //new 
+            }
+        }
+        else if(endBattleState == EndBattleState.Lose) 
+        {
+            //Fade...
+            //Menu
+        }
     }
     void Reveal()
     {
@@ -297,6 +346,12 @@ public class BetSystem : MonoBehaviour
             betCount--;
             OnBetCountChange();
         }
+    }
+    public void OnReset()
+    {
+        turn = EntityTurn.Enemy;
+        betCount = 0;
+        turnCount = 0;
     }
 
     public enum EntityTurn
