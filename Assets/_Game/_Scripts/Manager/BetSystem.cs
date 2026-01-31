@@ -158,15 +158,16 @@ public class BetSystem : MonoBehaviour
     void Surrender()
     {
         if (turn != EntityTurn.Player) return;
-        if (totalEnemyBet > 1)
+        if (totalEnemyBet > 0)
         {
             enemyHealth += totalEnemyBet;
             OnEnemyHealthChange();
-            totalEnemyBet = 1;
+            totalEnemyBet = 0;
             OnTotalEnemyBetChange();
         }
-        totalPlayerBet = 1;
+        totalPlayerBet = 0;
         OnTotalPlayerBetChange();
+        StateController.Instance.ChangeState(GameState.Roll);
     }
     void AllIn()
     {

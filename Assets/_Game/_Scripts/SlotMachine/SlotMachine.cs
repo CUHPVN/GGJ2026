@@ -23,9 +23,12 @@ public class SlotMachine : MonoBehaviour
 
     public Action ShakeCamera;
 
+    public bool IsInit = false;
     private void OnEnable()
     {
         InteractManager.Instance.OnRollAction += Rolling;
+        StateController.Instance.OnEnterStateRoll += ResetRoll;
+
     }
     private void OnDisable()
     {
@@ -33,6 +36,11 @@ public class SlotMachine : MonoBehaviour
         {
 
             InteractManager.Instance.OnRollAction -= Rolling;
+        }
+        if(StateController.Instance != null)
+        {
+            StateController.Instance.OnEnterStateRoll -= ResetRoll;
+
         }
     }
     void Start()
@@ -61,9 +69,11 @@ public class SlotMachine : MonoBehaviour
             slot.transform.SetParent(transform);
             slots.Add(slot);
         }
+        IsInit=true; 
     }
     public void ResetRoll()
     {
+        if (!IsInit) return;
         symbolPool.RandomPool();
         for (int i = 0; i < slotCount; i++)
         {

@@ -21,7 +21,7 @@ public class SymbolPool : Singleton<SymbolPool>
         Count[4] = 20;
         for(int i=0; i < 50; i++)
         {
-            int value = (UnityEngine.Random.Range(0, 4));
+            int value = (UnityEngine.Random.Range(0, 5));
             Pool[i + 100] = value;
             Count[value]++;
         }

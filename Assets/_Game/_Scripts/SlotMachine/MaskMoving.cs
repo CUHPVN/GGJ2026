@@ -11,6 +11,24 @@ public class MaskMoving : MonoBehaviour
     [SerializeField] float slotSize = 1.125f;
     [SerializeField] int maxTurn = 6;
     [SerializeField] SpriteRenderer spriteRenderer;
+    [SerializeField] Vector2 startPos;
+    public void OnEnable()
+    {
+        StateController.Instance.OnEnterStateRoll += ResetMask;
+
+    }
+    public void OnDisable()
+    {
+        if (StateController.Instance != null)
+        {
+            StateController.Instance.OnEnterStateRoll -= ResetMask;
+        }
+    }
+    public void ResetMask()
+    {
+        transform.position = startPos;
+        spriteRenderer.color = Color.white;
+    }
     public void Move(int value)
     {
         if (value > maxTurn) return;
