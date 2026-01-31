@@ -58,3 +58,4 @@ MonoBehaviour:
   - {fileID: 8542204513765946424, guid: 2b7c41b4593f66f4388a08a37e46c0ca, type: 3}
   - {fileID: 3244622203517571467, guid: 162e2187acc6f8940aab125e71a0e0fc, type: 3}
   nullSprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  symbolPool: {fileID: 0}

@@ -10,7 +10,22 @@ public class StateController : Singleton<StateController>
     public event Action OnEnterStateLose;
     public event Action OnEnterStateComplete;
 
+    private void OnEnable()
+    {
+        InteractManager.Instance.OnApplyRollAction += ChangeToBet;
+    }
+    private void OnDisable()
+    {
+        if(InteractManager.Instance!= null)
+        {
 
+            InteractManager.Instance.OnApplyRollAction -= ChangeToBet;
+        }
+    }
+    void ChangeToBet()
+    {
+        ChangeState(GameState.Bet);
+    }
     void Start()
     {
         ChangeState(GameState.Roll);
@@ -67,7 +82,7 @@ public class StateController : Singleton<StateController>
     }
     private void StartBet()
     {
-        OnEnterStateRoll?.Invoke();
+        OnEnterStateBet?.Invoke();
     }
     private void HandleComplete() { /* Show UI and FX */ }
 
