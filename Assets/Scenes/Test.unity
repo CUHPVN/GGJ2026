@@ -1212,6 +1212,7 @@ GameObject:
   m_Component:
   - component: {fileID: 658564537}
   - component: {fileID: 658564538}
+  - component: {fileID: 658564539}
   m_Layer: 0
   m_Name: Mask
   m_TagString: Untagged
@@ -1293,6 +1294,21 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &658564539
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 658564536}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18dd9def25d14b548b400d81a3a59dcd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MaskMoving
+  slotSize: 1
+  turnCount: 0
+  maxTurn: 6
 --- !u!114 &771349033 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6700037533752840571, guid: dc20448c90b2c09458315bc8e1ec1703, type: 3}
@@ -1808,6 +1824,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7719050851266259141, guid: ecfa86c3a8240a34ba489d4945706767, type: 3}
+      propertyPath: nullSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: cee16a7881130a44fbf889ddab5f11ac, type: 3}
     - target: {fileID: 7719050851266259141, guid: ecfa86c3a8240a34ba489d4945706767, type: 3}
       propertyPath: symbolPool
       value: 
@@ -4115,6 +4135,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7719050851266259141, guid: ecfa86c3a8240a34ba489d4945706767, type: 3}
+      propertyPath: nullSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: cee16a7881130a44fbf889ddab5f11ac, type: 3}
     - target: {fileID: 7719050851266259141, guid: ecfa86c3a8240a34ba489d4945706767, type: 3}
       propertyPath: symbolPool
       value: 
