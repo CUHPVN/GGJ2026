@@ -182,11 +182,13 @@ public class BetSystem : Singleton<BetSystem>
         if (totalEnemyBet > 0)
         {
             enemyHealth += totalEnemyBet;
-            OnEnemyHealthChange();
             totalEnemyBet = 0;
             OnTotalEnemyBetChange();
         }
+        enemyHealth += totalPlayerBet;
+        enemyHealth += totalPlayerBet / 2;
         totalPlayerBet = 0;
+        OnEnemyHealthChange();
         OnTotalPlayerBetChange();
         StateController.Instance.ChangeState(GameState.Roll);
     }
