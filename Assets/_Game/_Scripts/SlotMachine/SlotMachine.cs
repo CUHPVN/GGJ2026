@@ -50,6 +50,7 @@ public class SlotMachine : MonoBehaviour
     }
     public void Init()
     {
+        if (IsInit) return;
         Application.targetFrameRate = 120;
 
         for (int i = 0; i < slotCount; i++)
@@ -75,7 +76,10 @@ public class SlotMachine : MonoBehaviour
     {
         AudioManager.Instance.Play(AudioManager.SoundType.Slot_Run);
 
-        if (!IsInit) return;
+        if (!IsInit)
+        {
+            Init();
+        }
         symbolPool.RandomPool();
         for (int i = 0; i < slotCount; i++)
         {

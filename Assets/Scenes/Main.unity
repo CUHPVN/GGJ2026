@@ -479,6 +479,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &388970524 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 17167170179251122, guid: dc20448c90b2c09458315bc8e1ec1703, type: 3}
+  m_PrefabInstance: {fileID: 2083292464}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e578628873d90b346a83ed1fd1a558b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Appear
 --- !u!1 &450066134
 GameObject:
   m_ObjectHideFlags: 0
@@ -1479,6 +1490,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1241603644}
   m_CullTransparentMesh: 1
+--- !u!114 &1326336299 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7965376387705872888, guid: dc20448c90b2c09458315bc8e1ec1703, type: 3}
+  m_PrefabInstance: {fileID: 2083292464}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e578628873d90b346a83ed1fd1a558b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Appear
 --- !u!1001 &1347660961
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1579,6 +1601,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71dc4012d6590d54b920632001c6c6f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SlotMachine
+--- !u!114 &1413287545 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 13108216208021783, guid: dc20448c90b2c09458315bc8e1ec1703, type: 3}
+  m_PrefabInstance: {fileID: 2083292464}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e578628873d90b346a83ed1fd1a558b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Appear
 --- !u!1 &1516450584
 GameObject:
   m_ObjectHideFlags: 0
@@ -1711,7 +1744,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 6
+  m_SortingOrder: 7
   m_MaskInteraction: 0
   m_Sprite: {fileID: -7099320919023276961, guid: d0c7abb2d530a2645a51f8a4354c3f6a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -1745,6 +1778,17 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1532319724 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2857543412313215806, guid: dc20448c90b2c09458315bc8e1ec1703, type: 3}
+  m_PrefabInstance: {fileID: 2083292464}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e578628873d90b346a83ed1fd1a558b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Appear
 --- !u!1 &1705711981
 GameObject:
   m_ObjectHideFlags: 0
@@ -2123,9 +2167,49 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 450066135}
     - target: {fileID: 157015425673845726, guid: dc20448c90b2c09458315bc8e1ec1703, type: 3}
+      propertyPath: PlayerTurnAppears.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 157015425673845726, guid: dc20448c90b2c09458315bc8e1ec1703, type: 3}
       propertyPath: 'rollDisappears.Array.data[10]'
       value: 
       objectReference: {fileID: 450066135}
+    - target: {fileID: 157015425673845726, guid: dc20448c90b2c09458315bc8e1ec1703, type: 3}
+      propertyPath: EnemyTurnDisappears.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 157015425673845726, guid: dc20448c90b2c09458315bc8e1ec1703, type: 3}
+      propertyPath: 'PlayerTurnAppears.Array.data[2]'
+      value: 
+      objectReference: {fileID: 388970524}
+    - target: {fileID: 157015425673845726, guid: dc20448c90b2c09458315bc8e1ec1703, type: 3}
+      propertyPath: 'PlayerTurnAppears.Array.data[3]'
+      value: 
+      objectReference: {fileID: 1326336299}
+    - target: {fileID: 157015425673845726, guid: dc20448c90b2c09458315bc8e1ec1703, type: 3}
+      propertyPath: 'PlayerTurnAppears.Array.data[4]'
+      value: 
+      objectReference: {fileID: 1413287545}
+    - target: {fileID: 157015425673845726, guid: dc20448c90b2c09458315bc8e1ec1703, type: 3}
+      propertyPath: 'PlayerTurnAppears.Array.data[5]'
+      value: 
+      objectReference: {fileID: 1532319724}
+    - target: {fileID: 157015425673845726, guid: dc20448c90b2c09458315bc8e1ec1703, type: 3}
+      propertyPath: 'EnemyTurnDisappears.Array.data[2]'
+      value: 
+      objectReference: {fileID: 388970524}
+    - target: {fileID: 157015425673845726, guid: dc20448c90b2c09458315bc8e1ec1703, type: 3}
+      propertyPath: 'EnemyTurnDisappears.Array.data[3]'
+      value: 
+      objectReference: {fileID: 1326336299}
+    - target: {fileID: 157015425673845726, guid: dc20448c90b2c09458315bc8e1ec1703, type: 3}
+      propertyPath: 'EnemyTurnDisappears.Array.data[4]'
+      value: 
+      objectReference: {fileID: 1413287545}
+    - target: {fileID: 157015425673845726, guid: dc20448c90b2c09458315bc8e1ec1703, type: 3}
+      propertyPath: 'EnemyTurnDisappears.Array.data[5]'
+      value: 
+      objectReference: {fileID: 1532319724}
     - target: {fileID: 1036314246948352290, guid: dc20448c90b2c09458315bc8e1ec1703, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
