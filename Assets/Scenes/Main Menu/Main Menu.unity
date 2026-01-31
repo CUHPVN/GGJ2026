@@ -131,6 +131,7 @@ GameObject:
   - component: {fileID: 81190139}
   - component: {fileID: 81190138}
   - component: {fileID: 81190137}
+  - component: {fileID: 81190140}
   m_Layer: 5
   m_Name: SettingButton
   m_TagString: Untagged
@@ -252,6 +253,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 81190135}
   m_CullTransparentMesh: 1
+--- !u!114 &81190140
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 81190135}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2d308741482cb14d9e1ee557e82be4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::JuicyButton
+  hoverScale: 1.1
+  pressScale: 0.9
 --- !u!1 &173024298
 GameObject:
   m_ObjectHideFlags: 0
@@ -401,6 +416,7 @@ GameObject:
   - component: {fileID: 250093880}
   - component: {fileID: 250093879}
   - component: {fileID: 250093878}
+  - component: {fileID: 250093881}
   m_Layer: 5
   m_Name: ShopButton
   m_TagString: Untagged
@@ -522,6 +538,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 250093876}
   m_CullTransparentMesh: 1
+--- !u!114 &250093881
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 250093876}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2d308741482cb14d9e1ee557e82be4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::JuicyButton
+  hoverScale: 1.1
+  pressScale: 0.9
 --- !u!1 &250959575
 GameObject:
   m_ObjectHideFlags: 0
@@ -1333,6 +1363,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9141a28dd76c8824985af1622c8fe107, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CustomPanel
+  panel: {fileID: 1033022050}
+  hiddenPos: {x: 0, y: -1000}
+  visiblePos: {x: 0, y: 0}
+  speed: 10
 --- !u!114 &1033022052
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1542,6 +1576,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9141a28dd76c8824985af1622c8fe107, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CustomPanel
+  panel: {fileID: 1060687654}
+  hiddenPos: {x: 0, y: -1000}
+  visiblePos: {x: 0, y: 0}
+  speed: 10
 --- !u!1 &1138954227
 GameObject:
   m_ObjectHideFlags: 0
@@ -1595,6 +1633,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9141a28dd76c8824985af1622c8fe107, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CustomPanel
+  panel: {fileID: 1138954228}
+  hiddenPos: {x: 0, y: -1000}
+  visiblePos: {x: 0, y: 0}
+  speed: 10
 --- !u!114 &1138954230
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2498,6 +2540,7 @@ MonoBehaviour:
   levelText: {fileID: 1320627623}
   priceText: {fileID: 1662197586}
   buyButton: {fileID: 2067919856}
+  rect: {fileID: 1751939872}
 --- !u!1 &1762523181
 GameObject:
   m_ObjectHideFlags: 0
@@ -2510,6 +2553,7 @@ GameObject:
   - component: {fileID: 1762523185}
   - component: {fileID: 1762523184}
   - component: {fileID: 1762523183}
+  - component: {fileID: 1762523186}
   m_Layer: 5
   m_Name: BackButton
   m_TagString: Untagged
@@ -2532,9 +2576,9 @@ RectTransform:
   - {fileID: 986813208}
   m_Father: {fileID: 1060687654}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 389, y: 132}
+  m_AnchorMin: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -18.9, y: -14}
   m_SizeDelta: {x: 80, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1762523183
@@ -2631,6 +2675,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1762523181}
   m_CullTransparentMesh: 1
+--- !u!114 &1762523186
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1762523181}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2d308741482cb14d9e1ee557e82be4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::JuicyButton
+  hoverScale: 1.1
+  pressScale: 0.9
 --- !u!1 &1799783421
 GameObject:
   m_ObjectHideFlags: 0
@@ -3047,6 +3105,7 @@ MonoBehaviour:
   levelText: {fileID: 606369312}
   priceText: {fileID: 173024300}
   buyButton: {fileID: 1873367849}
+  rect: {fileID: 1934670277}
 --- !u!1 &2024453007
 GameObject:
   m_ObjectHideFlags: 0
@@ -3134,6 +3193,7 @@ GameObject:
   - component: {fileID: 2064307137}
   - component: {fileID: 2064307136}
   - component: {fileID: 2064307135}
+  - component: {fileID: 2064307138}
   m_Layer: 5
   m_Name: PlayButton
   m_TagString: Untagged
@@ -3255,6 +3315,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2064307133}
   m_CullTransparentMesh: 1
+--- !u!114 &2064307138
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2064307133}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2d308741482cb14d9e1ee557e82be4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::JuicyButton
+  hoverScale: 1.1
+  pressScale: 0.9
 --- !u!1 &2067919854
 GameObject:
   m_ObjectHideFlags: 0

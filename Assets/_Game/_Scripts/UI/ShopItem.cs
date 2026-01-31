@@ -14,6 +14,8 @@ public class ShopItem : MonoBehaviour
     public TextMeshProUGUI priceText;
     public Button buyButton;
 
+    [SerializeField] RectTransform rect;
+
     private void Start()
     {
         RefreshUI();
@@ -57,6 +59,10 @@ public class ShopItem : MonoBehaviour
             FindFirstObjectByType<ShopManager>().UpdateTotalCoinUI();
 
             Debug.Log($"Đã nâng cấp {itemID} lên Level {currentLevel + 1}");
+        }
+        else
+        {
+            FindFirstObjectByType<ShopManager>().OnBuyFailed(rect);
         }
     }
 }
