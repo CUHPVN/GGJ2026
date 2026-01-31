@@ -38,7 +38,7 @@ public class UIManager : MonoBehaviour
 
     public void Play()
     {
-        SceneManager.LoadScene("Main 1");
+        SceneManager.LoadScene("Main");
     }    
  
   }

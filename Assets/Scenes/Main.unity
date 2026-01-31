@@ -1368,27 +1368,35 @@ MonoBehaviour:
   - level: 1
     enemyHealth: 50
     icon: 0
+    maskSprite: {fileID: 0}
   - level: 2
     enemyHealth: 100
     icon: 1
+    maskSprite: {fileID: 0}
   - level: 3
     enemyHealth: 150
     icon: 2
+    maskSprite: {fileID: 0}
   - level: 4
     enemyHealth: 200
     icon: 3
+    maskSprite: {fileID: 0}
   - level: 5
     enemyHealth: 250
     icon: 4
+    maskSprite: {fileID: 0}
   - level: 6
     enemyHealth: 1000
     icon: 0
+    maskSprite: {fileID: 0}
   - level: 7
     enemyHealth: 10000
     icon: 0
+    maskSprite: {fileID: 0}
   - level: 7
     enemyHealth: 10000
     icon: 0
+    maskSprite: {fileID: 0}
 --- !u!1 &924302998
 GameObject:
   m_ObjectHideFlags: 0
