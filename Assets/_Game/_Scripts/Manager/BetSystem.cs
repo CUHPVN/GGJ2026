@@ -1,10 +1,11 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class BetSystem : MonoBehaviour
+public class BetSystem : Singleton<BetSystem>
 {
     [SerializeField] private int playerHealth = 10;
     [SerializeField] private int enemyHealth = 10;
@@ -23,8 +24,8 @@ public class BetSystem : MonoBehaviour
 
     [SerializeField] private MaskMoving maskMoving;
 
-
-
+    public event Action BetCoinFist;
+    public bool IsBet=false;
 
     private EntityTurn turn = EntityTurn.Enemy;
     private int betCount = 0;
@@ -52,9 +53,17 @@ public class BetSystem : MonoBehaviour
     }
     private void Start()
     {
-        LoadLevel(10, 10);
     }
-    public void LoadLevel(int playerHp, int enemyHp)
+    public void LoadLevel(int enemyHp)
+    {
+        this.enemyHealth = enemyHp;
+        OnEnemyHealthChange();
+        totalPlayerBet = 0;
+        OnTotalPlayerBetChange();
+        totalEnemyBet = 0;
+        OnTotalEnemyBetChange();
+    }
+    public void LoadLevelFistTime(int playerHp, int enemyHp)
     {
         this.playerHealth = playerHp;
         OnPlayerHealthChange();
@@ -100,14 +109,14 @@ public class BetSystem : MonoBehaviour
         int minHP = totalPlayerBet - totalEnemyBet;
         if(playerHealth>=1)
         {
-            int roll = Random.Range(0, 100);
+            int roll = UnityEngine.Random.Range(0, 100);
             if (roll < 80)
             {
                 EnemyBet(Mathf.Max(minHP, 1));
             }
             else
             {
-                EnemyBet(Mathf.Max(minHP, 1) + Random.Range(0,enemyHealth));
+                EnemyBet(Mathf.Max(minHP, 1) + UnityEngine.Random.Range(0,enemyHealth));
             }
         }else
         if (minHP >= enemyHealth)
@@ -186,6 +195,11 @@ public class BetSystem : MonoBehaviour
         OnPlayerHealthChange();
         betCount = 0;
         OnBetCountChange();
+        if (!IsBet)
+        {
+            IsBet = true;
+            BetCoinFist?.Invoke();
+        }
         if (CheckEqual()) StartEnemyThink();
         if (turnCount >= 6)
         {
@@ -298,8 +312,10 @@ public class BetSystem : MonoBehaviour
         else if(endBattleState == EndBattleState.Win)
         {
             //Addmoney
-            PlayerPrefs.SetInt("Coin",PlayerPrefs.GetInt("Coin")+totalEnemyBet);
+            PlayerPrefs.SetInt("PlayerCoin",PlayerPrefs.GetInt("PlayerCoin") + totalEnemyBet);
             PlayerPrefs.Save();
+
+
             playerHealth += totalPlayerBet;
             OnPlayerHealthChange();
             totalPlayerBet = 0;
@@ -371,6 +387,7 @@ public class BetSystem : MonoBehaviour
         turn = EntityTurn.Enemy;
         betCount = 0;
         turnCount = 0;
+        IsBet=false;
     }
 
     public enum EntityTurn
