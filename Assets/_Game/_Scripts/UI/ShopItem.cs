@@ -20,6 +20,7 @@ public class ShopItem : MonoBehaviour
     {
         RefreshUI();
         buyButton.onClick.AddListener(BuyUpgrade);
+       // PlayerPrefs.SetInt("PlayerCoin", 1000);
     }
 
     public void RefreshUI()
@@ -35,7 +36,7 @@ public class ShopItem : MonoBehaviour
 
         // Kiểm tra tiền của người chơi để tắt/mở nút
         int playerCoins = PlayerPrefs.GetInt("PlayerCoin", 100);
-        buyButton.interactable = (playerCoins >= currentPrice);
+        //buyButton.interactable = (playerCoins >= currentPrice);
     }
 
     void BuyUpgrade()

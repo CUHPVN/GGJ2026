@@ -41,5 +41,6 @@ public class LevelManager : Singleton<LevelManager>
         public int level;
         public int enemyHealth;
         public int icon;
+        public Sprite maskSprite;
     }
 }
