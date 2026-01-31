@@ -26,7 +26,7 @@ public class LevelManager : Singleton<LevelManager>
     }
     public Sprite GetMaskSprite()
     {
-        return levelDatas[level].maskSprite;
+        return levelDatas[level-1].maskSprite;
     }
     public void LevelUp()
     {

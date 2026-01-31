@@ -33,6 +33,7 @@ public class MaskMoving : MonoBehaviour
     }
     public void Move(int value)
     {
+        AudioManager.Instance.Play(AudioManager.SoundType.Last_Stop);
         if (value > maxTurn) return;
         Vector2 target =(new Vector2((value % 2) * slotSize, -(1 - value % 2) * 1));
         if (coroutine == null)
