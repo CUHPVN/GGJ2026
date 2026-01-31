@@ -27,7 +27,7 @@ public class MaskMoving : MonoBehaviour
     }
     public void ResetMask()
     {
-        spriteRenderer.sprite = LevelManager.Instance.levelDatas[0].maskSprite;
+        spriteRenderer.sprite = LevelManager.Instance.GetMaskSprite();
         transform.position = startPos;
         spriteRenderer.color = Color.white;
     }

@@ -20,6 +20,7 @@ public class UIControler : MonoBehaviour
     public Appear[] winDisappears;
     public Appear[] loseDisappears;
     public Appear[] complDisappears;
+    public Appear[] rollDoneDisappears;
 
 
     private void OnEnable()
@@ -110,6 +111,10 @@ public class UIControler : MonoBehaviour
         foreach (Appear appear in rollDoneAppears)
         {
             appear.Show();
+        }
+        foreach (Appear appear in rollDoneDisappears)
+        {
+            appear.Hide();
         }
     }
 }
