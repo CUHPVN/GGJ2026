@@ -24,6 +24,10 @@ public class LevelManager : Singleton<LevelManager>
             Debug.Log("Not Enought Level");
         }
     }
+    public Sprite GetMaskSprite()
+    {
+        return levelDatas[level].maskSprite;
+    }
     public void LevelUp()
     {
         level++;

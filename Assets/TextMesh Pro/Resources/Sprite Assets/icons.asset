@@ -41,27 +41,27 @@ MonoBehaviour:
   - m_ElementType: 2
     m_Unicode: 65534
     m_GlyphIndex: 0
-    m_Scale: 1.5
+    m_Scale: 2
     m_Name: icons_0
   - m_ElementType: 2
     m_Unicode: 65534
     m_GlyphIndex: 1
-    m_Scale: 1.5
+    m_Scale: 2
     m_Name: icons_1
   - m_ElementType: 2
     m_Unicode: 65534
     m_GlyphIndex: 2
-    m_Scale: 1.5
+    m_Scale: 2
     m_Name: icons_2
   - m_ElementType: 2
     m_Unicode: 65534
     m_GlyphIndex: 3
-    m_Scale: 1.5
+    m_Scale: 2
     m_Name: icons_3
   - m_ElementType: 2
     m_Unicode: 65534
     m_GlyphIndex: 4
-    m_Scale: 1.5
+    m_Scale: 2
     m_Name: icons_4
   m_GlyphTable:
   - m_Index: 0
@@ -69,7 +69,7 @@ MonoBehaviour:
       m_Width: 32
       m_Height: 32
       m_HorizontalBearingX: 0
-      m_HorizontalBearingY: 32
+      m_HorizontalBearingY: 24
       m_HorizontalAdvance: 32
     m_GlyphRect:
       m_X: 0
@@ -85,7 +85,7 @@ MonoBehaviour:
       m_Width: 32
       m_Height: 32
       m_HorizontalBearingX: 0
-      m_HorizontalBearingY: 32
+      m_HorizontalBearingY: 24
       m_HorizontalAdvance: 32
     m_GlyphRect:
       m_X: 32
@@ -101,7 +101,7 @@ MonoBehaviour:
       m_Width: 32
       m_Height: 32
       m_HorizontalBearingX: 0
-      m_HorizontalBearingY: 32
+      m_HorizontalBearingY: 24
       m_HorizontalAdvance: 32
     m_GlyphRect:
       m_X: 64
@@ -117,7 +117,7 @@ MonoBehaviour:
       m_Width: 32
       m_Height: 32
       m_HorizontalBearingX: 0
-      m_HorizontalBearingY: 32
+      m_HorizontalBearingY: 24
       m_HorizontalAdvance: 32
     m_GlyphRect:
       m_X: 96
@@ -133,7 +133,7 @@ MonoBehaviour:
       m_Width: 32
       m_Height: 32
       m_HorizontalBearingX: 0
-      m_HorizontalBearingY: 32
+      m_HorizontalBearingY: 24
       m_HorizontalAdvance: 32
     m_GlyphRect:
       m_X: 128

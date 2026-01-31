@@ -339,7 +339,8 @@ public class BetSystem : Singleton<BetSystem>
             if (enemyHealth <= 0)
             {
                 QuestionManager.Instance.playerHave[QuestionManager.Instance.question.type] = true;
-                LevelManager.Instance.LevelUp();
+
+                StateController.Instance.OnEnterStateBet += LevelUp;
                 //new 
             }
             else
@@ -372,6 +373,11 @@ public class BetSystem : Singleton<BetSystem>
             else
                 StartCoroutine(EndDelay());
         }
+    }
+    private void LevelUp()
+    {
+        LevelManager.Instance.LevelUp();
+        StateController.Instance.OnEnterStateBet -= LevelUp;
     }
     private IEnumerator EndDelay()
     {
