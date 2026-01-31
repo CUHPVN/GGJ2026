@@ -31,7 +31,7 @@ public class Appear : MonoBehaviour
     {
         targetA.transform.gameObject.SetActive(true);
         float time=0;
-        float duration = 0.5f;
+        float duration = 0.2f;
         Vector2 startPos = targetA.transform.position;
         Vector2 target = (Vector2)transform.position;
         while (time < duration)
@@ -46,7 +46,7 @@ public class Appear : MonoBehaviour
     public IEnumerator EHide()
     {
         float time = 0;
-        float duration = 0.5f;
+        float duration = 0.1f;
         Vector2 startPos = targetA.transform.position;
         Vector2 target = (Vector2)targetA.transform.position - this.target;
         while (time < duration)
