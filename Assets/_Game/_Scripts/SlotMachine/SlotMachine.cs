@@ -29,6 +29,7 @@ public class SlotMachine : MonoBehaviour
         InteractManager.Instance.OnRollAction += Rolling;
         StateController.Instance.OnEnterStateRoll += ResetRoll;
 
+
     }
     private void OnDisable()
     {
@@ -49,7 +50,6 @@ public class SlotMachine : MonoBehaviour
     }
     public void Init()
     {
-        AudioManager.Instance.Play(AudioManager.SoundType.Slot_Run);
         Application.targetFrameRate = 120;
 
         for (int i = 0; i < slotCount; i++)
@@ -73,6 +73,8 @@ public class SlotMachine : MonoBehaviour
     }
     public void ResetRoll()
     {
+        AudioManager.Instance.Play(AudioManager.SoundType.Slot_Run);
+
         if (!IsInit) return;
         symbolPool.RandomPool();
         for (int i = 0; i < slotCount; i++)
