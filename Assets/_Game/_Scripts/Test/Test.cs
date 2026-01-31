@@ -13,7 +13,7 @@ public class Test : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            AudioManager.Instance.Play(AudioManager.SoundType.Player_Jump);
+            AudioManager.Instance.Play(AudioManager.SoundType.Button_Click);
         }
     }
 }
