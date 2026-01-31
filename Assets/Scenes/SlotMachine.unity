@@ -315,6 +315,100 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 258892869}
   m_CullTransparentMesh: 1
+--- !u!1 &381891210
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 381891212}
+  - component: {fileID: 381891214}
+  - component: {fileID: 381891213}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &381891212
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 381891210}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.68755, y: 0.99995, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &381891213
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 381891210}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 989fd370292527f46869f4c79beb9f5a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Test
+--- !u!114 &381891214
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 381891210}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6bbcfd0779fb1a45b220b5c789bdd5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AudioManager
+  sounds:
+  - type: 1
+    clip: {fileID: 8300000, guid: f5c5087e1feeeea49b23de99a576665d, type: 3}
+    volume: 0
+    pitch: 0
+    loop: 0
+    source: {fileID: 0}
+  - type: 2
+    clip: {fileID: 8300000, guid: 746564f67b77b994e9ea728fcbc63f30, type: 3}
+    volume: 0
+    pitch: 0
+    loop: 0
+    source: {fileID: 0}
+  - type: 3
+    clip: {fileID: 8300000, guid: e83133ff9ce18c94786f1d32aa6f0f90, type: 3}
+    volume: 0
+    pitch: 0
+    loop: 0
+    source: {fileID: 0}
+  - type: 4
+    clip: {fileID: 8300000, guid: 0e34b42b40a01eb48b5b5a977f209f67, type: 3}
+    volume: 0
+    pitch: 0
+    loop: 0
+    source: {fileID: 0}
+  - type: 5
+    clip: {fileID: 0}
+    volume: 0
+    pitch: 0
+    loop: 0
+    source: {fileID: 0}
+  - type: 6
+    clip: {fileID: 8300000, guid: a440b06572d5ecf4092ec00f31f73d34, type: 3}
+    volume: 0
+    pitch: 0
+    loop: 0
+    source: {fileID: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -1764,63 +1858,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e578628873d90b346a83ed1fd1a558b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Appear
---- !u!1 &1198455154
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1198455155}
-  - component: {fileID: 1198455156}
-  m_Layer: 0
-  m_Name: AudioManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1198455155
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1198455154}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1198455156
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1198455154}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d6bbcfd0779fb1a45b220b5c789bdd5d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::AudioManager
-  sounds:
-  - type: 2
-    clip: {fileID: 8300000, guid: 6ade5a132b813ff48947d350b45c80c1, type: 3}
-    volume: 0.502
-    pitch: 1.38
-    loop: 0
-    source: {fileID: 0}
-  - type: 1
-    clip: {fileID: 8300000, guid: 5f264806a7541d44fb218aa7f77c356b, type: 3}
-    volume: 0.477
-    pitch: 1.37
-    loop: 0
-    source: {fileID: 0}
 --- !u!1 &1305756711
 GameObject:
   m_ObjectHideFlags: 0
@@ -2220,6 +2257,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6434923805a3a2459c499274012f3c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::QuestionManager
+  slotMachine: {fileID: 0}
+  eSlotMachine: {fileID: 0}
   playerHave: 
 --- !u!4 &1617168814 stripped
 Transform:
@@ -2289,11 +2328,13 @@ MonoBehaviour:
   playerCoin: 0
   playerHeart: 10
   mobHeart: 10
-  panelText: {fileID: 0}
   playerHeartText: {fileID: 0}
+  mobHeartText: {fileID: 0}
   playerCoinText: {fileID: 0}
   betAmmount: {fileID: 0}
   isPlayerWin: 1
+  playerHeartBettedText: {fileID: 0}
+  mobHeartBettedText: {fileID: 0}
 --- !u!1 &1927536838
 GameObject:
   m_ObjectHideFlags: 0
@@ -3118,8 +3159,8 @@ SceneRoots:
   m_Roots:
   - {fileID: 519420032}
   - {fileID: 619394802}
-  - {fileID: 1198455155}
   - {fileID: 535163038}
   - {fileID: 520136897}
   - {fileID: 1227641203061486386}
   - {fileID: 1363804635}
+  - {fileID: 381891212}

@@ -6,17 +6,19 @@ public class AudioManager : PersistentSingleton<AudioManager>
 {
     public enum SoundType
     {
-        None,       // Luôn nên có giá trị mặc định
-        BGM_Main,   // Nhạc nền
-        Player_Jump,// Âm thanh nhảy
-        Player_Die, // Âm thanh chết
-        UI_Click,   // Tiếng click nút
-        Enemy_Hit   // Kẻ địch bị đánh
+        None,
+        BGM_Main,
+        Button_Click,
+        Slot_Run,
+        Slot_Stop,
+        Mouse_Click,
+        Game_Over//a
+
     }
     [System.Serializable]
     public class Sound
     {
-        public SoundType type;       // <-- Thay đổi ở đây (String -> Enum)
+        public SoundType type;
         public AudioClip clip;
 
         [Range(0f, 1f)] public float volume = 1f;
@@ -26,9 +28,8 @@ public class AudioManager : PersistentSingleton<AudioManager>
         [HideInInspector]
         public AudioSource source;
     }
-    public Sound[] sounds; // Dùng để config trong Inspector
+    public Sound[] sounds;
 
-    // Dictionary để tra cứu nhanh: SoundType -> AudioSource
     private Dictionary<SoundType, AudioSource> audioMap;
 
     protected override void Awake()
