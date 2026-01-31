@@ -32,7 +32,6 @@ public class Slot : MonoBehaviour
     }
     private void Start()
     {
-        StartRoll();
     }
     public void StartRoll()
     {

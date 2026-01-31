@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 public class StateController : Singleton<StateController>
@@ -12,18 +13,22 @@ public class StateController : Singleton<StateController>
 
     private void OnEnable()
     {
-        InteractManager.Instance.OnApplyRollAction += ChangeToBet;
+        InteractManager.Instance.OnRollAction += ChangeToBet;
     }
     private void OnDisable()
     {
         if(InteractManager.Instance!= null)
         {
 
-            InteractManager.Instance.OnApplyRollAction -= ChangeToBet;
+            InteractManager.Instance.OnRollAction -= ChangeToBet;
         }
     }
     void ChangeToBet()
     {
+        StartCoroutine(ChangeStateToBet());
+    }
+    private IEnumerator ChangeStateToBet() { 
+        yield return new WaitForSeconds(4);
         ChangeState(GameState.Bet);
     }
     void Start()

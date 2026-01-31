@@ -13,6 +13,8 @@ public class UIControler : MonoBehaviour
     public Appear[] loseAppears;
     public Appear[] complAppears;
     public Appear[] rollDoneAppears;
+    public Appear[] EnemyTurnAppears;
+    public Appear[] PlayerTurnAppears;
 
     [Header("Dis")]
     public Appear[] rollDisappears;
@@ -21,6 +23,10 @@ public class UIControler : MonoBehaviour
     public Appear[] loseDisappears;
     public Appear[] complDisappears;
     public Appear[] rollDoneDisappears;
+    public Appear[] EnemyTurnDisappears;
+    public Appear[] PlayerTurnDisappears;
+
+
 
 
     private void OnEnable()
@@ -28,7 +34,10 @@ public class UIControler : MonoBehaviour
         StateController.Instance.OnEnterStateRoll += RollState;
         StateController.Instance.OnEnterStateBet += BetState;
         BetSystem.Instance.BetCoinFist +=BetFistTime;
+        BetSystem.Instance.TurnEvent += Turn;
+
         slotMachine.OnRollDone += RollDone;
+
     }
     private void OnDisable()
     {
@@ -42,6 +51,8 @@ public class UIControler : MonoBehaviour
         if (BetSystem.Instance != null)
         {
             BetSystem.Instance.BetCoinFist -= BetFistTime;
+            BetSystem.Instance.TurnEvent -= Turn;
+
         }
         slotMachine.OnRollDone -= RollDone;
 
@@ -113,6 +124,57 @@ public class UIControler : MonoBehaviour
             appear.Show();
         }
         foreach (Appear appear in rollDoneDisappears)
+        {
+            appear.Hide();
+        }
+    }
+    public void Turn(EntityTurn entityTurn)
+    {
+        if (entityTurn == EntityTurn.Enemy)
+        {
+            EnemyTurn();
+        }
+
+        if (entityTurn == EntityTurn.Player)
+        {
+            PlayerTurn();
+        }
+
+        if (entityTurn == EntityTurn.Stop)
+        {
+            StopTurn();
+        }
+    }
+    public void EnemyTurn()
+    {
+        foreach (Appear appear in EnemyTurnAppears)
+        {
+            appear.Show();
+        }
+        foreach (Appear appear in EnemyTurnDisappears)
+        {
+            appear.Hide();
+        }
+    }
+    public void PlayerTurn()
+    {
+        foreach (Appear appear in PlayerTurnAppears)
+        {
+            appear.Show();
+        }
+        foreach (Appear appear in PlayerTurnDisappears)
+        {
+            appear.Hide();
+        }
+    }
+    public void StopTurn()
+    {
+        
+        foreach (Appear appear in PlayerTurnDisappears)
+        {
+            appear.Hide();
+        }
+        foreach (Appear appear in EnemyTurnDisappears)
         {
             appear.Hide();
         }

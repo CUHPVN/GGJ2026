@@ -25,6 +25,7 @@ public class BetSystem : Singleton<BetSystem>
     [SerializeField] private MaskMoving maskMoving;
 
     public event Action BetCoinFist;
+    public event Action<EntityTurn> TurnEvent;
     public bool IsBet=false;
 
     private EntityTurn turn = EntityTurn.Enemy;
@@ -86,6 +87,7 @@ public class BetSystem : Singleton<BetSystem>
         if (turnCount >= 6)
         {
             turn = EntityTurn.Stop;
+            TurnEvent?.Invoke(turn);
             Result();
             return;
         }
@@ -112,10 +114,10 @@ public class BetSystem : Singleton<BetSystem>
         if(minHP<=enemyHealth&&enemyHealth>=1)
         {
             int roll = UnityEngine.Random.Range(0, 100);
-            if (roll < 80)
+            if (roll < 70)
             {
                 int roll2 = UnityEngine.Random.Range(0, 100);
-                if (roll < 50)
+                if (roll2 < 50)
                 {
                     EnemyBet(Mathf.Max(minHP, 1));
                 }
@@ -137,6 +139,8 @@ public class BetSystem : Singleton<BetSystem>
         else
         {
             turn = EntityTurn.Stop;
+            TurnEvent?.Invoke(turn);
+
             BetOutOfHealth();
         }
     }
@@ -217,6 +221,8 @@ public class BetSystem : Singleton<BetSystem>
         if (turnCount >= 6)
         {
             turn = EntityTurn.Stop;
+            TurnEvent?.Invoke(turn);
+
             Result();
             return;
         }
@@ -230,6 +236,8 @@ public class BetSystem : Singleton<BetSystem>
         else
         {
             turn = EntityTurn.Enemy;
+            TurnEvent?.Invoke(turn);
+
             StartEnemyThink();
         }
     }
@@ -244,6 +252,8 @@ public class BetSystem : Singleton<BetSystem>
         if (turnCount >= 6)
         {
             turn = EntityTurn.Stop;
+            TurnEvent?.Invoke(turn);
+
             Result();
             return;
         } else
@@ -266,6 +276,8 @@ public class BetSystem : Singleton<BetSystem>
             betCount = Mathf.Min(betCount, playerHealth);
             OnBetCountChange();
             turn = EntityTurn.Player;
+            TurnEvent?.Invoke(turn);
+
         }
     }
     private bool CheckEqual()
@@ -298,6 +310,8 @@ public class BetSystem : Singleton<BetSystem>
             if(turnCount == 6)
             {
                 turn = EntityTurn.Stop;
+                TurnEvent?.Invoke(turn);
+
                 Result();
             }
         }
@@ -423,6 +437,8 @@ public class BetSystem : Singleton<BetSystem>
     public void OnReset()
     {
         turn = EntityTurn.Enemy;
+        TurnEvent?.Invoke(turn);
+
         betCount = 0;
         OnBetCountChange();
         turnCount = 0;
@@ -433,11 +449,11 @@ public class BetSystem : Singleton<BetSystem>
         IsBet=false;
     }
 
+}
     public enum EntityTurn
     {
         Stop=0,
         Enemy=1,
         Player=2,
     }
-}
    
