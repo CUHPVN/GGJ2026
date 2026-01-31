@@ -20,7 +20,7 @@ public class BetSystem : MonoBehaviour
     [SerializeField] private TMP_Text playerHealthText;
     [SerializeField] private TMP_Text enemyHealthText;
 
-
+    [SerializeField] private MaskMoving maskMoving;
 
 
 
@@ -319,7 +319,7 @@ public class BetSystem : MonoBehaviour
     }
     void Reveal()
     {
-        Debug.Log(turnCount);
+        maskMoving.Move(turnCount);
     }
     void IncBet()
     {
