@@ -1,8 +1,10 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class QuestionManager : Singleton<QuestionManager>
 {
+    public TMP_Text WinCon;
     public SlotMachine slotMachine;
     public SlotMachine eSlotMachine;
     public bool[] playerHave = new bool[5];
@@ -12,10 +14,22 @@ public class QuestionManager : Singleton<QuestionManager>
         public bool isHighest;
         public int type;
     }
+    public void OnEnable()
+    {
+        StateController.Instance.OnEnterStateRoll += GenQuestion;
+    }
+    public void OnDisable()
+    {
+        if (StateController.Instance != null)
+        {
+            StateController.Instance.OnEnterStateRoll -= GenQuestion;
+
+        }
+    }
     public void GenQuestion()
     {
         List<int> tmp = new List<int>();
-        for(int i=0; i<playerHave.Length; i++)
+        for(int i=0; i<5; i++)
         {
             if(!playerHave[i])
             {
@@ -26,6 +40,10 @@ public class QuestionManager : Singleton<QuestionManager>
         res.isHighest = (Random.Range(0, 2)==1)? true:false;
         res.type = tmp[Random.Range(0, tmp.Count)];
         question = res;
+        string s = (question.isHighest) ? "More ":"Less ";
+        s += "<sprite name=Icons_" + question.type + ">";
+        s += " Will Win!";
+        WinCon.text = s;
     }
     public EndBattleState IsPlayerWin(int[,] playerRes, int[,] enemyRes) 
     {

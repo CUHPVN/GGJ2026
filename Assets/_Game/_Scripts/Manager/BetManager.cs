@@ -86,7 +86,7 @@ public class BetManager : Singleton<BetManager>
             // Kiểm tra điều kiện kết thúc sớm
             if (playerHeart <= 0 || mobHeart <= 0) BetEnd();
             else MobProposeBet(); // Tiếp tục lượt mới
-            checkRes();
+            //checkRes();
         }
         //else
         //{

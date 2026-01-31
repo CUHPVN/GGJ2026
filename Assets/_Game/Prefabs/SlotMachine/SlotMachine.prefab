@@ -52,10 +52,10 @@ MonoBehaviour:
   currentSlot: 0
   slots: []
   sprites:
-  - {fileID: -7564190652846395695, guid: 4472ee1d86cb7464aa2305ef4f8720ca, type: 3}
-  - {fileID: 2272944654947970142, guid: 5172ae6b9d06bce45a7f7f089ca6b90a, type: 3}
-  - {fileID: 3687827142923641263, guid: a723983031f16d6498fd10923b404497, type: 3}
-  - {fileID: 8542204513765946424, guid: 2b7c41b4593f66f4388a08a37e46c0ca, type: 3}
-  - {fileID: 3244622203517571467, guid: 162e2187acc6f8940aab125e71a0e0fc, type: 3}
+  - {fileID: 7160429211405778527, guid: d87a8660456523f40bfc779fbf97ecc7, type: 3}
+  - {fileID: 7057801135558962131, guid: d87a8660456523f40bfc779fbf97ecc7, type: 3}
+  - {fileID: -709529425693167831, guid: d87a8660456523f40bfc779fbf97ecc7, type: 3}
+  - {fileID: 6306999314160741799, guid: d87a8660456523f40bfc779fbf97ecc7, type: 3}
+  - {fileID: 2428041468874453082, guid: d87a8660456523f40bfc779fbf97ecc7, type: 3}
   nullSprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
   symbolPool: {fileID: 0}
