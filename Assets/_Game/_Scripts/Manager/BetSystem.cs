@@ -63,6 +63,8 @@ public class BetSystem : Singleton<BetSystem>
         totalEnemyBet = 0;
         OnTotalEnemyBetChange();
     }
+
+    
     public void LoadLevelFistTime(int playerHp, int enemyHp)
     {
         this.playerHealth = playerHp;
@@ -112,7 +114,16 @@ public class BetSystem : Singleton<BetSystem>
             int roll = UnityEngine.Random.Range(0, 100);
             if (roll < 80)
             {
-                EnemyBet(Mathf.Max(minHP, 1));
+                int roll2 = UnityEngine.Random.Range(0, 100);
+                if (roll < 50)
+                {
+                    EnemyBet(Mathf.Max(minHP, 1));
+                }
+                else
+                {
+                    int minCl = Mathf.Max(playerHealth, enemyHealth)/3;
+                    EnemyBet(UnityEngine.Random.Range(Mathf.Max(minHP, 1), minCl));
+                }
             }
             else
             {
@@ -250,6 +261,7 @@ public class BetSystem : Singleton<BetSystem>
                 return;
             }
             betCount = totalEnemyBet - totalPlayerBet;
+            betCount = Mathf.Min(betCount, playerHealth);
             OnBetCountChange();
             turn = EntityTurn.Player;
         }
@@ -295,16 +307,7 @@ public class BetSystem : Singleton<BetSystem>
     void Result()
     {
         EndBattleState endBattleState = QuestionManager.Instance.battleState;
-        if (totalPlayerBet > totalEnemyBet)
-        {
-            playerHealth += totalPlayerBet - totalEnemyBet;
-            OnPlayerHealthChange(); 
-        }
-        if(totalPlayerBet < totalEnemyBet)
-        {
-            enemyHealth += totalEnemyBet - totalPlayerBet;
-            OnTotalEnemyBetChange();
-        }
+        
         if (endBattleState == EndBattleState.Draw)
         {
             playerHealth += totalPlayerBet;
@@ -327,6 +330,7 @@ public class BetSystem : Singleton<BetSystem>
 
 
             playerHealth += totalPlayerBet;
+            playerHealth += totalEnemyBet/2;
             OnPlayerHealthChange();
             totalPlayerBet = 0;
             OnTotalPlayerBetChange();
@@ -346,7 +350,18 @@ public class BetSystem : Singleton<BetSystem>
         }
         else if(endBattleState == EndBattleState.Lose) 
         {
-            enemyHealth += totalEnemyBet;
+            enemyHealth += totalPlayerBet;
+            enemyHealth += totalPlayerBet / 2;
+            if (totalPlayerBet > totalEnemyBet)
+            {
+                playerHealth += totalPlayerBet - totalEnemyBet;
+                OnPlayerHealthChange();
+            }
+            if (totalPlayerBet < totalEnemyBet)
+            {
+                enemyHealth += totalEnemyBet - totalPlayerBet;
+                OnTotalEnemyBetChange();
+            }
             OnTotalPlayerBetChange();
 
 
@@ -401,6 +416,7 @@ public class BetSystem : Singleton<BetSystem>
     {
         turn = EntityTurn.Enemy;
         betCount = 0;
+        OnBetCountChange();
         turnCount = 0;
         totalPlayerBet = 0;
         OnTotalPlayerBetChange();
