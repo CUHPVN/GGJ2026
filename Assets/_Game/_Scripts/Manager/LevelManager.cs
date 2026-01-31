@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class LevelManager : MonoBehaviour
+public class LevelManager : Singleton<LevelManager>
 {
     public LevelData[] levelDatas;
     int level = 1;
@@ -24,7 +24,7 @@ public class LevelManager : MonoBehaviour
             Debug.Log("Not Enought Level");
         }
     }
-    void LevelUp()
+    public void LevelUp()
     {
         level++;
         LoadLevel();

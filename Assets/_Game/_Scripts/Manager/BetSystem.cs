@@ -107,7 +107,7 @@ public class BetSystem : Singleton<BetSystem>
     {
 
         int minHP = totalPlayerBet - totalEnemyBet;
-        if(playerHealth>=1)
+        if(minHP<=enemyHealth&&enemyHealth>=1)
         {
             int roll = UnityEngine.Random.Range(0, 100);
             if (roll < 80)
@@ -119,7 +119,7 @@ public class BetSystem : Singleton<BetSystem>
                 EnemyBet(Mathf.Max(minHP, 1) + UnityEngine.Random.Range(0,enemyHealth));
             }
         }else
-        if (minHP >= enemyHealth)
+        if (minHP > enemyHealth)
         {
             EnemyBet(enemyHealth);
         }
@@ -295,7 +295,17 @@ public class BetSystem : Singleton<BetSystem>
     void Result()
     {
         EndBattleState endBattleState = QuestionManager.Instance.battleState;
-        if(endBattleState == EndBattleState.Draw)
+        if (totalPlayerBet > totalEnemyBet)
+        {
+            playerHealth += totalPlayerBet - totalEnemyBet;
+            OnPlayerHealthChange(); 
+        }
+        if(totalPlayerBet < totalEnemyBet)
+        {
+            enemyHealth += totalEnemyBet - totalPlayerBet;
+            OnTotalEnemyBetChange();
+        }
+        if (endBattleState == EndBattleState.Draw)
         {
             playerHealth += totalPlayerBet;
             OnPlayerHealthChange();
@@ -320,9 +330,10 @@ public class BetSystem : Singleton<BetSystem>
             OnPlayerHealthChange();
             totalPlayerBet = 0;
             OnTotalPlayerBetChange();
-            if (enemyHealth == 0)
+            if (enemyHealth <= 0)
             {
                 QuestionManager.Instance.playerHave[QuestionManager.Instance.question.type] = true;
+                LevelManager.Instance.LevelUp();
                 //new 
             }
             else
@@ -335,10 +346,14 @@ public class BetSystem : Singleton<BetSystem>
         }
         else if(endBattleState == EndBattleState.Lose) 
         {
-            //Fade...
-            //Menu
+            enemyHealth += totalEnemyBet;
+            OnTotalPlayerBetChange();
 
+
+            if(playerHealth<=0)
             StartCoroutine(MenuDelay());
+            else
+                StartCoroutine(EndDelay());
         }
     }
     private IEnumerator EndDelay()
@@ -387,6 +402,10 @@ public class BetSystem : Singleton<BetSystem>
         turn = EntityTurn.Enemy;
         betCount = 0;
         turnCount = 0;
+        totalPlayerBet = 0;
+        OnTotalPlayerBetChange();
+        totalEnemyBet = 0;
+        OnTotalEnemyBetChange();
         IsBet=false;
     }
 
