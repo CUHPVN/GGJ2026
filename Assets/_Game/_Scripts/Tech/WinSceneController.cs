@@ -2,6 +2,8 @@
 using UnityEngine.UI;
 using TMPro;
 using System.Collections;
+using Unity.VectorGraphics;
+using UnityEngine.SceneManagement;
 
 public class WinSceneController : MonoBehaviour
 {
@@ -74,5 +76,7 @@ public class WinSceneController : MonoBehaviour
             yield return null;
         }
         rect.localScale = originalScale;
+        yield return new WaitForSeconds(5f);
+        SceneManager.LoadScene("Main Menu");
     }
 }
