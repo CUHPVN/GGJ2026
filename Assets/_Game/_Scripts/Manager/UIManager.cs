@@ -33,4 +33,12 @@ public class UIManager : MonoBehaviour
         settingPanel.PopDown();
         menuPanel.PopUp();
     }
-}
+    public void Click()
+    {
+        AudioManager.Instance.Play(AudioManager.SoundType.Mouse_Click);
+    }
+    public void Roll()
+    { AudioManager.Instance.Play(AudioManager.SoundType.Button_Click); }
+
+ 
+  }
