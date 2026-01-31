@@ -21,6 +21,8 @@ public class BetSystem : Singleton<BetSystem>
     [SerializeField] private TMP_Text betCountText;
     [SerializeField] private TMP_Text playerHealthText;
     [SerializeField] private TMP_Text enemyHealthText;
+    private Coroutine totalPlayerBetCoroutine;
+    private Coroutine totalEnemyBetCoroutine;
 
     [SerializeField] private MaskMoving maskMoving;
 
@@ -167,10 +169,20 @@ public class BetSystem : Singleton<BetSystem>
     void OnTotalEnemyBetChange()
     {
         totalEnemyBetText.text = totalEnemyBet.ToString();
+
+        if (totalEnemyBetCoroutine != null) StopCoroutine(totalEnemyBetCoroutine);
+
+        // Hiệu ứng cho tiền cược của quái
+        totalEnemyBetCoroutine = StartCoroutine(UIManager.PunchScale(totalEnemyBetText.rectTransform, 1.3f, 0.25f));
     }
     void OnTotalPlayerBetChange()
     {
         totalPlayerBetText.text = totalPlayerBet.ToString();
+
+        if (totalPlayerBetCoroutine != null) StopCoroutine(totalPlayerBetCoroutine);
+
+        // Hiệu ứng cho tiền cược của quái
+        totalPlayerBetCoroutine = StartCoroutine(UIManager.PunchScale(totalPlayerBetText.rectTransform, 1.3f, 0.25f));
     }
     void OnBetCountChange()
     {
