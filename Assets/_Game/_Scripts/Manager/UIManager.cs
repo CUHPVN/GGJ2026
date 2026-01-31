@@ -17,11 +17,7 @@ public class UIManager : MonoBehaviour
         shopPanel.PopDown();
         menuPanel.PopUp();
     }
-    public void Play()
-    {
-        Debug.Log("Load Scene game play");
-        //SceneManager.LoadScene("GamePlay");
-    }
+
     public void OpenSetting()
     {
         menuPanel.PopDown();
@@ -40,5 +36,9 @@ public class UIManager : MonoBehaviour
     public void Roll()
     { AudioManager.Instance.Play(AudioManager.SoundType.Button_Click); }
 
+    public void Play()
+    {
+        SceneManager.LoadScene("Main");
+    }    
  
   }
