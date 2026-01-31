@@ -10,9 +10,12 @@ public class AudioManager : PersistentSingleton<AudioManager>
         BGM_Main,
         Button_Click,
         Slot_Run,
+        Last_Stop,
         Slot_Stop,
         Mouse_Click,
-        Game_Over//a
+        Game_Over,//a,
+        UI_Hover,
+        Health_Loss
 
     }
     [System.Serializable]

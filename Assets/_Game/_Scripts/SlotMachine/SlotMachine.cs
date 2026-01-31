@@ -41,6 +41,7 @@ public class SlotMachine : MonoBehaviour
     }
     public void Init()
     {
+        AudioManager.Instance.Play(AudioManager.SoundType.Slot_Run);
         Application.targetFrameRate = 120;
 
         for (int i = 0; i < slotCount; i++)
@@ -81,11 +82,19 @@ public class SlotMachine : MonoBehaviour
         rolling = StartCoroutine(Roll());
 
     }
-    WaitForSeconds waitForEndOfRoll = new WaitForSeconds(0.25f);
+    WaitForSeconds waitForEndOfRoll = new WaitForSeconds(0.3f);
     public IEnumerator Roll()
     {
-        while(currentSlot < slotCount)
+        AudioManager.Instance.Stop(AudioManager.SoundType.Slot_Run);
+        while (currentSlot < slotCount)
         {
+            if (currentSlot == slotCount - 1)
+            {
+                AudioManager.Instance.Stop(AudioManager.SoundType.Slot_Stop);
+                AudioManager.Instance.Play(AudioManager.SoundType.Last_Stop);
+            }
+            else
+                AudioManager.Instance.Play(AudioManager.SoundType.Slot_Stop);
             slots[currentSlot].SetStop(true);
             int[] symbol = slots[currentSlot].GetResultSymbol();
             res[currentSlot, 0] = symbol[0];
@@ -93,6 +102,8 @@ public class SlotMachine : MonoBehaviour
             res[currentSlot, 2] = symbol[2];
             currentSlot++;
             yield return waitForEndOfRoll;
+            
+            
         }
         OnRollDone?.Invoke();
     }

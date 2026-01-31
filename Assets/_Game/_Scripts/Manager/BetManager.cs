@@ -191,4 +191,8 @@ public class BetManager : Singleton<BetManager>
     {
 
     }
+    public void Click()
+    {
+        AudioManager.Instance.Play(AudioManager.SoundType.Mouse_Click);
+    }
 }
