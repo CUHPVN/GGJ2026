@@ -1279,6 +1279,7 @@ MonoBehaviour:
     enemyHealth: 250
     icon: 4
     maskSprite: {fileID: 8355011889209557658, guid: 9bab1c585a425aa41821eac2614b2b62, type: 3}
+  level: 1
 --- !u!1 &1133724718
 GameObject:
   m_ObjectHideFlags: 0
@@ -1292,7 +1293,7 @@ GameObject:
   - component: {fileID: 1133724720}
   - component: {fileID: 1133724719}
   m_Layer: 5
-  m_Name: Canvas (1)
+  m_Name: BG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2850,7 +2851,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 157015425673845726, guid: dc20448c90b2c09458315bc8e1ec1703, type: 3}
       propertyPath: PlayerTurnAppears.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 157015425673845726, guid: dc20448c90b2c09458315bc8e1ec1703, type: 3}
       propertyPath: 'rollDisappears.Array.data[10]'
@@ -2866,7 +2867,7 @@ PrefabInstance:
       objectReference: {fileID: 1656501502}
     - target: {fileID: 157015425673845726, guid: dc20448c90b2c09458315bc8e1ec1703, type: 3}
       propertyPath: EnemyTurnDisappears.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 157015425673845726, guid: dc20448c90b2c09458315bc8e1ec1703, type: 3}
       propertyPath: 'PlayerTurnAppears.Array.data[0]'
@@ -2875,7 +2876,7 @@ PrefabInstance:
     - target: {fileID: 157015425673845726, guid: dc20448c90b2c09458315bc8e1ec1703, type: 3}
       propertyPath: 'PlayerTurnAppears.Array.data[1]'
       value: 
-      objectReference: {fileID: 1656501502}
+      objectReference: {fileID: 1443031601}
     - target: {fileID: 157015425673845726, guid: dc20448c90b2c09458315bc8e1ec1703, type: 3}
       propertyPath: PlayerTurnDisappears.Array.size
       value: 1
@@ -2888,6 +2889,10 @@ PrefabInstance:
       propertyPath: 'EnemyTurnDisappears.Array.data[0]'
       value: 
       objectReference: {fileID: 266844828}
+    - target: {fileID: 157015425673845726, guid: dc20448c90b2c09458315bc8e1ec1703, type: 3}
+      propertyPath: 'EnemyTurnDisappears.Array.data[1]'
+      value: 
+      objectReference: {fileID: 1443031601}
     - target: {fileID: 157015425673845726, guid: dc20448c90b2c09458315bc8e1ec1703, type: 3}
       propertyPath: 'PlayerTurnDisappears.Array.data[0]'
       value: 

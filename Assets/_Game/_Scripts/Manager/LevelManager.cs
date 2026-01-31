@@ -1,9 +1,10 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LevelManager : Singleton<LevelManager>
 {
     public LevelData[] levelDatas;
-    int level = 1;
+    public int level = 1;
     void Start()
     {
         LoadLevel();
@@ -15,13 +16,13 @@ public class LevelManager : Singleton<LevelManager>
             BetSystem.Instance.LoadLevelFistTime(100,levelDatas[level - 1].enemyHealth);
         }
         else
-        if (level < levelDatas.Length)
+        if (level < levelDatas.Length+1)
         {
             BetSystem.Instance.LoadLevel(levelDatas[level-1].enemyHealth);
         }
         else
         {
-            Debug.Log("Not Enought Level");
+            SceneManager.LoadScene("Win");
         }
     }
     public Sprite GetMaskSprite()

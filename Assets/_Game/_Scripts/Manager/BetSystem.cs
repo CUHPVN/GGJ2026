@@ -7,8 +7,8 @@ using UnityEngine.UI;
 
 public class BetSystem : Singleton<BetSystem>
 {
-    [SerializeField] private int playerHealth = 10;
-    [SerializeField] private int enemyHealth = 10;
+    [SerializeField] private int playerHealth = 100;
+    [SerializeField] private int enemyHealth = 50;
     [SerializeField] private int totalPlayerBet = 0;
     [SerializeField] private int totalEnemyBet = 0;
     [SerializeField] private Button surrender;
@@ -255,6 +255,11 @@ public class BetSystem : Singleton<BetSystem>
     }
     private void EnemyBet(int count)
     {
+        if (count > enemyHealth)
+        {
+            count = enemyHealth;
+            enemyHealth = 0;
+        }
         totalEnemyBet += count;
         OnTotalEnemyBetChange();
         enemyHealth -= count;
