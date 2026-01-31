@@ -2451,7 +2451,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Appear
   targetA: {fileID: 991059353}
-  target: {x: -20, y: 0}
+  target: {x: 0, y: -10}
   curve:
     serializedVersion: 2
     m_Curve:
@@ -2958,11 +2958,15 @@ PrefabInstance:
       objectReference: {fileID: 519420031}
     - target: {fileID: 8436420244423233102, guid: dc20448c90b2c09458315bc8e1ec1703, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8436420244423233102, guid: dc20448c90b2c09458315bc8e1ec1703, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8824021540039768424, guid: dc20448c90b2c09458315bc8e1ec1703, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9083664305111515422, guid: dc20448c90b2c09458315bc8e1ec1703, type: 3}
       propertyPath: m_Pivot.x
@@ -3044,7 +3048,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4095848934851545086, guid: dc20448c90b2c09458315bc8e1ec1703, type: 3}
     m_RemovedGameObjects:
     - {fileID: 2017113978105758714, guid: dc20448c90b2c09458315bc8e1ec1703, type: 3}
     m_AddedGameObjects:
