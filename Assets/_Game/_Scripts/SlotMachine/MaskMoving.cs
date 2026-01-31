@@ -12,6 +12,7 @@ public class MaskMoving : MonoBehaviour
     [SerializeField] int maxTurn = 6;
     [SerializeField] SpriteRenderer spriteRenderer;
     [SerializeField] Vector2 startPos;
+    //private SpriteRenderer spriteRenderer;
     public void OnEnable()
     {
         StateController.Instance.OnEnterStateRoll += ResetMask;
@@ -26,8 +27,9 @@ public class MaskMoving : MonoBehaviour
     }
     public void ResetMask()
     {
+        spriteRenderer.sprite = LevelManager.Instance.levelDatas[0].maskSprite;
         transform.position = startPos;
-        spriteRenderer.color = Color.white;
+        //spriteRenderer.color = Color.white;
     }
     public void Move(int value)
     {
