@@ -29,7 +29,7 @@ public class MaskMoving : MonoBehaviour
     {
         spriteRenderer.sprite = LevelManager.Instance.levelDatas[0].maskSprite;
         transform.position = startPos;
-        //spriteRenderer.color = Color.white;
+        spriteRenderer.color = Color.white;
     }
     public void Move(int value)
     {
