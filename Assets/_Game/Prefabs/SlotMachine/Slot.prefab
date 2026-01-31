@@ -173,7 +173,7 @@ SpriteRenderer:
   m_SortingOrder: -10
   m_MaskInteraction: 0
   m_Sprite: {fileID: -5668518402485374812, guid: bab6ca6dd24fb2a489d4a70515d6b555, type: 3}
-  m_Color: {r: 0.28235295, g: 0.28235295, b: 0.28235295, a: 1}
+  m_Color: {r: 0.15294118, g: 0.24313727, b: 0.227451, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -322,6 +322,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Slot
   slotMachine: {fileID: 0}
+  symbolPool: {fileID: 0}
   symbolCount: 0
   speed: 1
   currentSymbol: 0
@@ -376,6 +377,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7914871776824365220}
     m_Modifications:
+    - target: {fileID: 57693148594528683, guid: a020e2fc1197daa4dad91071c800eab6, type: 3}
+      propertyPath: m_SortingOrder
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 3432557810062652957, guid: a020e2fc1197daa4dad91071c800eab6, type: 3}
       propertyPath: m_Name
       value: Icon3
@@ -449,6 +454,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7914871776824365220}
     m_Modifications:
+    - target: {fileID: 57693148594528683, guid: a020e2fc1197daa4dad91071c800eab6, type: 3}
+      propertyPath: m_SortingOrder
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 3432557810062652957, guid: a020e2fc1197daa4dad91071c800eab6, type: 3}
       propertyPath: m_Name
       value: Icon1
@@ -522,6 +531,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7914871776824365220}
     m_Modifications:
+    - target: {fileID: 57693148594528683, guid: a020e2fc1197daa4dad91071c800eab6, type: 3}
+      propertyPath: m_SortingOrder
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 3432557810062652957, guid: a020e2fc1197daa4dad91071c800eab6, type: 3}
       propertyPath: m_Name
       value: Icon2

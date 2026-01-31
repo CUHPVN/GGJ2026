@@ -8,6 +8,7 @@ public class UIControler : MonoBehaviour
     public Appear[] appears;
     public Appear[] rollAppears;
     public Appear[] betAppears;
+    public Appear[] firstBetAppears;
     public Appear[] winAppears;
     public Appear[] loseAppears;
     public Appear[] complAppears;
@@ -25,7 +26,7 @@ public class UIControler : MonoBehaviour
     {
         StateController.Instance.OnEnterStateRoll += RollState;
         StateController.Instance.OnEnterStateBet += BetState;
-
+        BetSystem.Instance.BetCoinFist +=BetFistTime;
         slotMachine.OnRollDone += RollDone;
     }
     private void OnDisable()
@@ -34,19 +35,27 @@ public class UIControler : MonoBehaviour
         {
 
             StateController.Instance.OnEnterStateRoll -= RollState;
+            StateController.Instance.OnEnterStateBet -= BetState;
+
         }
+        if (BetSystem.Instance != null)
+        {
+            BetSystem.Instance.BetCoinFist -= BetFistTime;
+        }
+        slotMachine.OnRollDone -= RollDone;
+
     }
     private void Update()
     {
-        Keyboard keyboard = Keyboard.current;
-        if (keyboard.hKey.wasPressedThisFrame)
-        {
-            Hide();
-        }
-        if (keyboard.sKey.wasPressedThisFrame)
-        {
-            Show();
-        }
+        //Keyboard keyboard = Keyboard.current;
+        //if (keyboard.hKey.wasPressedThisFrame)
+        //{
+        //    Hide();
+        //}
+        //if (keyboard.sKey.wasPressedThisFrame)
+        //{
+        //    Show();
+        //}
     }
     [ContextMenu("GetALL")]
     public void GetAll()
@@ -65,6 +74,13 @@ public class UIControler : MonoBehaviour
         foreach (Appear appear in appears)
         {
             appear.Hide();
+        }
+    }
+    public void BetFistTime()
+    {
+        foreach (Appear appear in firstBetAppears)
+        {
+            appear.Show();
         }
     }
     public void BetState()

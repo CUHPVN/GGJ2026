@@ -1,10 +1,11 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class BetSystem : MonoBehaviour
+public class BetSystem : Singleton<BetSystem>
 {
     [SerializeField] private int playerHealth = 10;
     [SerializeField] private int enemyHealth = 10;
@@ -23,8 +24,8 @@ public class BetSystem : MonoBehaviour
 
     [SerializeField] private MaskMoving maskMoving;
 
-
-
+    public event Action BetCoinFist;
+    public bool IsBet=false;
 
     private EntityTurn turn = EntityTurn.Enemy;
     private int betCount = 0;
@@ -52,9 +53,19 @@ public class BetSystem : MonoBehaviour
     }
     private void Start()
     {
-        LoadLevel(10, 10);
     }
-    public void LoadLevel(int playerHp, int enemyHp)
+    public void LoadLevel(int enemyHp)
+    {
+        this.enemyHealth = enemyHp;
+        OnEnemyHealthChange();
+        totalPlayerBet = 0;
+        OnTotalPlayerBetChange();
+        totalEnemyBet = 0;
+        OnTotalEnemyBetChange();
+    }
+
+    
+    public void LoadLevelFistTime(int playerHp, int enemyHp)
     {
         this.playerHealth = playerHp;
         OnPlayerHealthChange();
@@ -98,19 +109,28 @@ public class BetSystem : MonoBehaviour
     {
 
         int minHP = totalPlayerBet - totalEnemyBet;
-        if(playerHealth>=1)
+        if(minHP<=enemyHealth&&enemyHealth>=1)
         {
-            int roll = Random.Range(0, 100);
+            int roll = UnityEngine.Random.Range(0, 100);
             if (roll < 80)
             {
-                EnemyBet(Mathf.Max(minHP, 1));
+                int roll2 = UnityEngine.Random.Range(0, 100);
+                if (roll < 50)
+                {
+                    EnemyBet(Mathf.Max(minHP, 1));
+                }
+                else
+                {
+                    int minCl = Mathf.Max(playerHealth, enemyHealth)/3;
+                    EnemyBet(UnityEngine.Random.Range(Mathf.Max(minHP, 1), minCl));
+                }
             }
             else
             {
-                EnemyBet(Mathf.Max(minHP, 1) + Random.Range(0,enemyHealth));
+                EnemyBet(Mathf.Max(minHP, 1) + UnityEngine.Random.Range(0,enemyHealth));
             }
         }else
-        if (minHP >= enemyHealth)
+        if (minHP > enemyHealth)
         {
             EnemyBet(enemyHealth);
         }
@@ -186,6 +206,11 @@ public class BetSystem : MonoBehaviour
         OnPlayerHealthChange();
         betCount = 0;
         OnBetCountChange();
+        if (!IsBet)
+        {
+            IsBet = true;
+            BetCoinFist?.Invoke();
+        }
         if (CheckEqual()) StartEnemyThink();
         if (turnCount >= 6)
         {
@@ -236,6 +261,7 @@ public class BetSystem : MonoBehaviour
                 return;
             }
             betCount = totalEnemyBet - totalPlayerBet;
+            betCount = Mathf.Min(betCount, playerHealth);
             OnBetCountChange();
             turn = EntityTurn.Player;
         }
@@ -281,7 +307,8 @@ public class BetSystem : MonoBehaviour
     void Result()
     {
         EndBattleState endBattleState = QuestionManager.Instance.battleState;
-        if(endBattleState == EndBattleState.Draw)
+        
+        if (endBattleState == EndBattleState.Draw)
         {
             playerHealth += totalPlayerBet;
             OnPlayerHealthChange();
@@ -298,15 +325,19 @@ public class BetSystem : MonoBehaviour
         else if(endBattleState == EndBattleState.Win)
         {
             //Addmoney
-            PlayerPrefs.SetInt("Coin",PlayerPrefs.GetInt("Coin")+totalEnemyBet);
+            PlayerPrefs.SetInt("PlayerCoin",PlayerPrefs.GetInt("PlayerCoin") + totalEnemyBet);
             PlayerPrefs.Save();
+
+
             playerHealth += totalPlayerBet;
+            playerHealth += totalEnemyBet/2;
             OnPlayerHealthChange();
             totalPlayerBet = 0;
             OnTotalPlayerBetChange();
-            if (enemyHealth == 0)
+            if (enemyHealth <= 0)
             {
                 QuestionManager.Instance.playerHave[QuestionManager.Instance.question.type] = true;
+                LevelManager.Instance.LevelUp();
                 //new 
             }
             else
@@ -319,10 +350,25 @@ public class BetSystem : MonoBehaviour
         }
         else if(endBattleState == EndBattleState.Lose) 
         {
-            //Fade...
-            //Menu
+            enemyHealth += totalPlayerBet;
+            enemyHealth += totalPlayerBet / 2;
+            if (totalPlayerBet > totalEnemyBet)
+            {
+                playerHealth += totalPlayerBet - totalEnemyBet;
+                OnPlayerHealthChange();
+            }
+            if (totalPlayerBet < totalEnemyBet)
+            {
+                enemyHealth += totalEnemyBet - totalPlayerBet;
+                OnTotalEnemyBetChange();
+            }
+            OnTotalPlayerBetChange();
 
+
+            if(playerHealth<=0)
             StartCoroutine(MenuDelay());
+            else
+                StartCoroutine(EndDelay());
         }
     }
     private IEnumerator EndDelay()
@@ -370,7 +416,13 @@ public class BetSystem : MonoBehaviour
     {
         turn = EntityTurn.Enemy;
         betCount = 0;
+        OnBetCountChange();
         turnCount = 0;
+        totalPlayerBet = 0;
+        OnTotalPlayerBetChange();
+        totalEnemyBet = 0;
+        OnTotalEnemyBetChange();
+        IsBet=false;
     }
 
     public enum EntityTurn
