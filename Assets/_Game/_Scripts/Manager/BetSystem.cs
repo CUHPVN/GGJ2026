@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class BetSystem : MonoBehaviour
@@ -291,18 +292,21 @@ public class BetSystem : MonoBehaviour
             totalEnemyBet = 0;
             OnTotalEnemyBetChange();
             //new 
-            StateController.Instance.ChangeState(GameState.Roll);
+            //wait..
+            StartCoroutine(EndDelay());
         }
         else if(endBattleState == EndBattleState.Win)
         {
             //Addmoney
+            PlayerPrefs.SetInt("Coin",PlayerPrefs.GetInt("Coin")+totalEnemyBet);
+            PlayerPrefs.Save();
             playerHealth += totalPlayerBet;
             OnPlayerHealthChange();
             totalPlayerBet = 0;
             OnTotalPlayerBetChange();
             if (enemyHealth == 0)
             {
-                //addItem
+                QuestionManager.Instance.playerHave[QuestionManager.Instance.question.type] = true;
                 //new 
             }
             else
@@ -311,12 +315,26 @@ public class BetSystem : MonoBehaviour
                 OnTotalEnemyBetChange();
                 //new 
             }
+            StartCoroutine(EndDelay());
         }
         else if(endBattleState == EndBattleState.Lose) 
         {
             //Fade...
             //Menu
+
+            StartCoroutine(MenuDelay());
         }
+    }
+    private IEnumerator EndDelay()
+    {
+        yield return new WaitForSeconds(3f);
+        StateController.Instance.ChangeState(GameState.Roll);
+    }
+
+    private IEnumerator MenuDelay()
+    {
+        yield return new WaitForSeconds(3f);
+        SceneManager.LoadScene("Main Menu");
     }
     void Reveal()
     {
