@@ -258,7 +258,6 @@ public class BetSystem : Singleton<BetSystem>
         if (count > enemyHealth)
         {
             count = enemyHealth;
-            enemyHealth = 0;
         }
         totalEnemyBet += count;
         OnTotalEnemyBetChange();
@@ -360,7 +359,7 @@ public class BetSystem : Singleton<BetSystem>
             //Addmoney
             PlayerPrefs.SetInt("PlayerCoin",PlayerPrefs.GetInt("PlayerCoin") + totalEnemyBet);
             PlayerPrefs.Save();
-
+            AudioManager.Instance.Play(AudioManager.SoundType.Health_Loss);
 
             playerHealth += totalPlayerBet;
             playerHealth += totalEnemyBet/2;
@@ -384,6 +383,7 @@ public class BetSystem : Singleton<BetSystem>
         }
         else if(endBattleState == EndBattleState.Lose) 
         {
+            AudioManager.Instance.Play(AudioManager.SoundType.Health_Loss);
             enemyHealth += totalPlayerBet;
             enemyHealth += totalPlayerBet / 2;
             if (totalPlayerBet > totalEnemyBet)
