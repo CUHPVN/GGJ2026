@@ -1,5 +1,96 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8199457663541582304
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3320462638744820222}
+  - component: {fileID: 4431866242303176828}
+  m_Layer: 0
+  m_Name: Sprite
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3320462638744820222
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8199457663541582304}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2.25, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 54922412001702220}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!212 &4431866242303176828
+SpriteRenderer:
+  serializedVersion: 2
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8199457663541582304}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_MaskInteraction: 0
+  m_Sprite: {fileID: 21300000, guid: af296aeac7adf5143806e964aeebec02, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 9, y: 4.9375}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_SpriteSortPoint: 0
 --- !u!1 &9102768784026827904
 GameObject:
   m_ObjectHideFlags: 0
@@ -26,10 +117,11 @@ Transform:
   m_GameObject: {fileID: 9102768784026827904}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2, y: 0, z: 0}
+  m_LocalPosition: {x: -2.25, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 3320462638744820222}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7719050851266259141
@@ -47,21 +139,16 @@ MonoBehaviour:
   slotPrefabs: {fileID: 147305734414750056, guid: da22af2acf4ff0046b4ae5243cc14b39, type: 3}
   slotCount: 5
   slotSpeed: 7
-  slotDistance: 1.5
-  slotSymbolCount: 10
+  slotDistance: 1.125
+  slotSymbolCount: 15
   currentSlot: 0
   slots: []
-  result: 
   sprites:
-  - {fileID: 7293598183456022363, guid: e595b46f469e56c4194b144422853832, type: 3}
-  - {fileID: 7795085465242543974, guid: 809a7d5446f0a614ea26f50219e20a4d, type: 3}
-  - {fileID: -1660761858345613354, guid: 7bb3a8ccc3e2b2d4390f83d8124ce24b, type: 3}
-  - {fileID: 6582011127417039112, guid: dc341776cea11ab4086089519d1dd9ef, type: 3}
-  - {fileID: -4953529368547132117, guid: f044ebfc6ed89a14c8664ab5c3a9d6ec, type: 3}
-  - {fileID: -1192541474057205494, guid: 597d56b844bb93046b66414613adfbc4, type: 3}
-  - {fileID: 4456443523020135713, guid: 9f5976890cc6ccb4aa5a92a56069585c, type: 3}
-  - {fileID: 8984754096541894249, guid: 40186701ad9afc147ae9739c615464fa, type: 3}
-  - {fileID: 4315506946141470425, guid: 1ed6361b0a7409c43b1485692e53f79b, type: 3}
-  - {fileID: -2896165634315968221, guid: d802bedf6c7789543a0a83064d786c6c, type: 3}
-  - {fileID: 4133926295016576647, guid: 3629a0f6e94363a4388c216cb59cc21f, type: 3}
+  - {fileID: 7160429211405778527, guid: d87a8660456523f40bfc779fbf97ecc7, type: 3}
+  - {fileID: 7057801135558962131, guid: d87a8660456523f40bfc779fbf97ecc7, type: 3}
+  - {fileID: -709529425693167831, guid: d87a8660456523f40bfc779fbf97ecc7, type: 3}
+  - {fileID: 6306999314160741799, guid: d87a8660456523f40bfc779fbf97ecc7, type: 3}
+  - {fileID: 2428041468874453082, guid: d87a8660456523f40bfc779fbf97ecc7, type: 3}
   nullSprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  symbolPool: {fileID: 0}
+  IsInit: 0

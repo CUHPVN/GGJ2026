@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -12,20 +13,56 @@ public class SlotMachine : MonoBehaviour
     [SerializeField] private int slotSymbolCount=3;
     [SerializeField] private int currentSlot = 0;
     [SerializeField] private List<Slot> slots;
-    [SerializeField] private List<int> result;
+    [SerializeField] private int[,] res = new int[5, 3];
     [SerializeField] private List<Sprite> sprites;
     [SerializeField] private Sprite nullSprite;
+    [SerializeField] private Coroutine rolling=null;
+    [SerializeField] private SymbolPool symbolPool;
 
-    public event Action<string> PullResult;
+    public event Action OnRollDone;
+
     public Action ShakeCamera;
 
+    public bool IsInit = false;
+    private void OnEnable()
+    {
+        InteractManager.Instance.OnRollAction += Rolling;
+        StateController.Instance.OnEnterStateRoll += ResetRoll;
+
+
+    }
+    private void OnDisable()
+    {
+        if (InteractManager.Instance != null)
+        {
+
+            InteractManager.Instance.OnRollAction -= Rolling;
+        }
+        if(StateController.Instance != null)
+        {
+            StateController.Instance.OnEnterStateRoll -= ResetRoll;
+
+        }
+    }
     void Start()
     {
+        Init();
+    }
+    public void Init()
+    {
+        if (IsInit) return;
         Application.targetFrameRate = 120;
 
-        for(int i = 0;i< slotCount; i++)
+        for (int i = 0; i < slotCount; i++)
         {
-            Slot slot = Instantiate(slotPrefabs,new Vector2(transform.position.x+i*slotDistance,transform.position.y),Quaternion.identity);
+            if (symbolPool != null) symbolPool.RandomPool();
+            else
+            {
+                symbolPool = FindAnyObjectByType<SymbolPool>();
+                Debug.LogWarning("Symbol was not ref!");
+            }
+            Slot slot = Instantiate(slotPrefabs, new Vector2(transform.position.x + i * slotDistance, transform.position.y), Quaternion.identity);
+            slot.SetSymbolPool(symbolPool);
             slot.SetSlotMachine(this);
             slot.SetSpeed(slotSpeed);
             slot.SetSymbolCount(slotSymbolCount);
@@ -33,39 +70,60 @@ public class SlotMachine : MonoBehaviour
             slot.transform.SetParent(transform);
             slots.Add(slot);
         }
+        IsInit=true; 
     }
+    public void ResetRoll()
+    {
+        AudioManager.Instance.Play(AudioManager.SoundType.Slot_Run);
 
+        if (!IsInit)
+        {
+            Init();
+        }
+        symbolPool.RandomPool();
+        for (int i = 0; i < slotCount; i++)
+        {
+            slots[i].StartRoll();
+        }
+        currentSlot = 0;
+        rolling = null;
+    }
 
     void Update()
     {
-        CheckClick();
     }
-    void CheckClick()
+    public void Rolling()
     {
-        Mouse mouse = Mouse.current;
-        Keyboard keyboard = Keyboard.current;
+        if(rolling==null)
+        rolling = StartCoroutine(Roll());
 
-        if (mouse.leftButton.wasPressedThisFrame)
-        {
-            if (currentSlot < slotCount)
-            {
-                slots[currentSlot].SetStop(true);
-                int symbol = slots[currentSlot].GetResultSymbol();
-                result.Add(symbol);
-                PullResult?.Invoke(GetNameSprite(symbol));
-                currentSlot++;
-            }
-        }
-        if (keyboard.rKey.wasPressedThisFrame)
-        {
-            for (int i = 0; i < slotCount; i++)
-            {
-                slots[i].StartRoll();
-            }
-            result.Clear();
-            currentSlot = 0;
-        }
     }
+    WaitForSeconds waitForEndOfRoll = new WaitForSeconds(0.3f);
+    public IEnumerator Roll()
+    {
+        AudioManager.Instance.Stop(AudioManager.SoundType.Slot_Run);
+        while (currentSlot < slotCount)
+        {
+            if (currentSlot == slotCount - 1)
+            {
+                AudioManager.Instance.Stop(AudioManager.SoundType.Slot_Stop);
+                AudioManager.Instance.Play(AudioManager.SoundType.Last_Stop);
+            }
+            else
+                AudioManager.Instance.Play(AudioManager.SoundType.Slot_Stop);
+            slots[currentSlot].SetStop(true);
+            int[] symbol = slots[currentSlot].GetResultSymbol();
+            res[currentSlot, 0] = symbol[0];
+            res[currentSlot, 1] = symbol[1];
+            res[currentSlot, 2] = symbol[2];
+            currentSlot++;
+            yield return waitForEndOfRoll;
+            
+            
+        }
+        OnRollDone?.Invoke();
+    }
+    public int[,] GetResult() => res; 
     public Sprite GetSymbolSpriteRule(int symbolData)
     {
         if (symbolData >= sprites.Count) return nullSprite;

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PersistentSingleton<T> : Singleton<T> where T : MonoBehaviour
 {
-    private void Awake()
+    protected virtual void Awake()
     {
         DontDestroyOnLoad(this);
         if (Instance != this)

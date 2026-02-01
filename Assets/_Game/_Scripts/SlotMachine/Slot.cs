@@ -9,12 +9,15 @@ using static UnityEngine.GraphicsBuffer;
 public class Slot : MonoBehaviour
 {
     [SerializeField] private SlotMachine slotMachine;
+    [SerializeField] private SymbolPool symbolPool;
+
     [SerializeField] private int symbolCount;
     [SerializeField] private float speed=1f;
     [SerializeField] private int currentSymbol=0;
     [SerializeField] private int[] symbolArray;
     [SerializeField] private Icon[] icons;
     [SerializeField] private bool stop;
+    private int[] res = new int[3];
 
     public UnityEvent OnSlotStop;
 
@@ -29,7 +32,6 @@ public class Slot : MonoBehaviour
     }
     private void Start()
     {
-        StartRoll();
     }
     public void StartRoll()
     {
@@ -37,7 +39,7 @@ public class Slot : MonoBehaviour
         symbolArray = new int[symbolCount];
         for (int i = 0; i < symbolCount; i++)
         {
-            symbolArray[i] = UnityEngine.Random.Range(0, symbolCount); //Can Change
+            symbolArray[i] = symbolPool.GetValueFormPool();
         }
         currentSymbol = 1;
         for (int i = 0; i < 3; i++)
@@ -76,7 +78,7 @@ public class Slot : MonoBehaviour
         stop = value;
         if (stop)
         {
-            Debug.Log(slotMachine.GetNameSprite(symbolArray[GetIndexInArray(currentSymbol)]));//
+            //Debug.Log(slotMachine.GetNameSprite(symbolArray[GetIndexInArray(currentSymbol)]));
 
             for(int i = 0; i < 3; i++)
             {
@@ -85,14 +87,17 @@ public class Slot : MonoBehaviour
                 if (pos == 2)
                 {
                     target = (new Vector2(icons[i].transform.position.x,transform.position.y+ 1f));
+                    res[0] = icons[i].GetSymbolData();
                 }
                 else if(pos == 0)
                 {
                     target = (new Vector2(icons[i].transform.position.x,transform.position.y-1f));
+                    res[2] = icons[i].GetSymbolData();
                 }
                 else if(pos == 1)
                 {
                     target = (new Vector2(icons[i].transform.position.x, transform.position.y));
+                    res[1] = icons[i].GetSymbolData();
                 }
                 icons[i].SetTargetPosition(target);
             }
@@ -104,14 +109,17 @@ public class Slot : MonoBehaviour
         yield return new WaitForSeconds(0.15f);
         OnSlotStop?.Invoke();
     }
-    public int GetResultSymbol()
+    public int[] GetResultSymbol()
     {
-        if (!stop) return -1;
-        return symbolArray[currentSymbol];
+        return res;
     }
     public void SetSlotMachine(SlotMachine value)
     {
         slotMachine = value;
+    }
+    public void SetSymbolPool(SymbolPool value)
+    {
+        symbolPool = value;
     }
     public void SetSpeed(float value)
     {

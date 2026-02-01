@@ -83,7 +83,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -5668518402485374812, guid: bab6ca6dd24fb2a489d4a70515d6b555, type: 3}
+  m_Sprite: {fileID: -8358113870863188520, guid: cee16a7881130a44fbf889ddab5f11ac, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -134,9 +134,6 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   currentIndex: 0
-  OnStop:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1 &7466408098844101354
 GameObject:
   m_ObjectHideFlags: 0
